@@ -1,0 +1,1554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fun English Quiz for Kids!</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: #f0fdf4; /* Light green background */
+            /* Add a subtle background pattern */
+            background-image: radial-gradient(#dcfce7 2px, transparent 2px);
+            background-size: 30px 30px;
+        }
+        .btn-topic {
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .btn-topic:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .btn-answer {
+            transition: all 0.2s;
+        }
+        .btn-answer:disabled {
+            cursor: not-allowed;
+            opacity: 0.9;
+        }
+        .correct-answer {
+            background-color: #22c55e !important; /* Green-500 */
+            color: white !important;
+            border-color: #16a34a !important;
+            transform: scale(1.02);
+            box-shadow: 0 0 15px rgba(34, 197, 94, 0.5);
+        }
+        .wrong-answer {
+            background-color: #ef4444 !important; /* Red-500 */
+            color: white !important;
+            border-color: #dc2626 !important;
+        }
+        /* Confetti Animation for perfect score */
+        @keyframes confetti-fall {
+            0% { transform: translateY(-100vh) rotate(0deg); }
+            100% { transform: translateY(100vh) rotate(360deg); }
+        }
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background-color: #fcd34d;
+            animation: confetti-fall 3s linear infinite;
+            z-index: 50;
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        /* Fallback Pseudo Fullscreen when permissions policy restricts native fullscreen in iFrames */
+        .is-pseudo-fullscreen {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100vw !important;
+            height: 100vh !important;
+            max-width: none !important;
+            max-height: none !important;
+            margin: 0 !important;
+            border-radius: 0 !important;
+            border: none !important;
+            z-index: 99999 !important;
+        }
+    </style>
+</head>
+<body class="text-gray-800 h-screen flex flex-col overflow-hidden">
+
+    <div id="app" class="flex-grow flex flex-col relative w-full h-full max-w-6xl mx-auto bg-white shadow-2xl overflow-hidden sm:rounded-2xl sm:my-2 lg:my-4 sm:h-[calc(100vh-1rem)] lg:h-[calc(100vh-2rem)] border-4 border-green-200">
+        
+        <!-- Header -->
+        <header class="bg-gradient-to-r from-green-400 to-blue-500 text-white p-3 sm:p-4 shadow-md flex justify-between items-center z-10 shrink-0">
+            <h1 class="text-xl sm:text-2xl lg:text-3xl font-extrabold tracking-wider flex items-center gap-2">
+                🌟 English Class Best Academy 🌟
+            </h1>
+            <div class="flex items-center gap-2 sm:gap-3">
+                <!-- Fullscreen Toggle Button -->
+                <button id="btn-fullscreen" class="bg-white/20 hover:bg-white/30 active:scale-95 text-white font-bold py-1.5 px-3 rounded-full transition-all flex items-center gap-2 text-xs sm:text-sm border border-white/40 shadow-sm backdrop-blur-sm cursor-pointer">
+                    <span id="fullscreen-icon" class="text-base sm:text-lg">⛶</span>
+                    <span class="hidden sm:inline" id="fullscreen-text">Full Screen</span>
+                </button>
+                <div id="score-display" class="hidden font-bold text-lg sm:text-xl bg-white/20 px-3 sm:px-4 py-1 rounded-full border-2 border-white/50">
+                    Score: <span id="current-score">0</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="flex-grow relative overflow-y-auto overflow-x-hidden p-4 sm:p-6 lg:p-8 bg-blue-50/50 flex flex-col">
+            
+            <!-- MENU VIEW -->
+            <div id="menu-view" class="w-full h-full flex flex-col fade-in justify-between">
+                <div class="text-center mb-3 sm:mb-4">
+                    <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-indigo-700 mb-1">Choose a Topic!</h2>
+                    <p class="text-gray-500 text-sm sm:text-base lg:text-lg mb-3">Pick what you want to learn today.</p>
+                    
+                    <!-- Level Selection Buttons -->
+                    <div class="flex justify-center items-center gap-2 sm:gap-3 bg-white/80 backdrop-blur-sm p-2 sm:p-2.5 rounded-2xl border-2 border-indigo-100 max-w-md mx-auto shadow-sm">
+                        <span class="font-extrabold text-indigo-900 text-xs sm:text-sm uppercase tracking-wide mr-1">Level:</span>
+                        <button id="btn-level-easy" class="btn-level bg-green-500 text-white font-bold px-3 sm:px-4 py-1.5 rounded-xl text-xs sm:text-sm shadow-md border-2 border-green-600 transform scale-105 transition-all cursor-pointer flex items-center gap-1">
+                            <span>🟢</span> Easy
+                        </button>
+                        <button id="btn-level-medium" class="btn-level bg-white text-gray-700 hover:bg-yellow-100 font-bold px-3 sm:px-4 py-1.5 rounded-xl text-xs sm:text-sm border border-gray-300 transition-all cursor-pointer flex items-center gap-1">
+                            <span>🟡</span> Medium
+                        </button>
+                        <button id="btn-level-hard" class="btn-level bg-white text-gray-700 hover:bg-red-100 font-bold px-3 sm:px-4 py-1.5 rounded-xl text-xs sm:text-sm border border-gray-300 transition-all cursor-pointer flex items-center gap-1">
+                            <span>🔴</span> Hard
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4 lg:gap-5 pb-6 my-auto" id="topic-grid">
+                    <!-- Topic buttons will be injected here by JS -->
+                </div>
+            </div>
+
+            <!-- QUIZ VIEW -->
+            <div id="quiz-view" class="w-full h-full hidden flex-col fade-in pb-16">
+                <!-- Top Bar in Quiz -->
+                <div class="flex justify-between items-center mb-3 sm:mb-4">
+                    <button id="btn-close-quiz" class="flex items-center gap-2 bg-red-100 text-red-600 hover:bg-red-200 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full font-bold text-sm sm:text-base transition-colors shadow-sm cursor-pointer">
+                        <span>❌</span> Menu
+                    </button>
+                    <div class="flex items-center gap-2">
+                        <div id="quiz-level-badge" class="bg-emerald-500 text-white font-extrabold px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border-2 border-emerald-600 shadow-sm text-xs sm:text-sm uppercase flex items-center gap-1">
+                            <span>🟢</span> Easy
+                        </div>
+                        <div class="bg-indigo-100 text-indigo-800 font-bold px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border-2 border-indigo-200 shadow-sm text-sm sm:text-base">
+                            Latihan <span id="question-number">1</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Topic Title -->
+                <h2 id="current-topic-title" class="text-lg sm:text-xl lg:text-2xl font-extrabold text-center text-blue-600 mb-3 sm:mb-4 capitalize">Topic Name</h2>
+
+                <!-- Question Card -->
+                <div class="bg-white rounded-3xl shadow-xl border-4 border-blue-100 p-6 sm:p-10 lg:p-12 flex-grow flex flex-col justify-center max-w-2xl mx-auto w-full relative overflow-hidden my-auto">
+                    
+                    <!-- Decorative corner blobs -->
+                    <div class="absolute -top-10 -left-10 w-32 h-32 bg-yellow-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 pointer-events-none"></div>
+                    <div class="absolute -bottom-10 -right-10 w-32 h-32 bg-pink-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 pointer-events-none"></div>
+
+                    <!-- Question Text / Word -->
+                    <div class="text-center my-auto py-2 sm:py-6 relative z-10">
+                        <p id="question-prompt-label" class="text-gray-500 text-base sm:text-lg font-bold mb-2 tracking-wide">Apa bahasa Inggris dari:</p>
+                        <h3 class="text-2xl sm:text-4xl lg:text-5xl text-indigo-700 tracking-wider font-black drop-shadow-sm my-3 sm:my-6 leading-relaxed" id="question-word">
+                            HUJAN
+                        </h3>
+                    </div>
+
+                    <!-- Answer / Interaction Area -->
+                    <div id="interaction-area" class="relative z-10 w-full flex flex-col items-center gap-4">
+                        <button id="btn-jawab" class="w-full max-w-md bg-yellow-400 hover:bg-yellow-500 text-yellow-950 font-extrabold text-2xl sm:text-3xl py-4 sm:py-5 px-8 rounded-2xl shadow-lg transform transition-all hover:scale-105 active:scale-95 border-b-4 border-yellow-500 cursor-pointer">
+                            JAWAB
+                        </button>
+                        
+                        <div id="answer-reveal-area" class="hidden w-full flex flex-col items-center fade-in">
+                            <p class="text-gray-400 text-xs sm:text-sm font-bold uppercase tracking-widest mb-2">Jawaban:</p>
+                            <div id="revealed-answer-text" class="text-2xl sm:text-4xl font-black text-emerald-600 bg-emerald-50 px-6 py-4 sm:py-5 rounded-2xl border-4 border-emerald-200 w-full text-center shadow-inner leading-relaxed">
+                                <!-- Answer injected by JS -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                 <!-- Next Button Floating Bottom -->
+                 <div class="absolute bottom-4 left-0 right-0 flex justify-center px-4 pointer-events-none z-20">
+                     <button id="btn-next" class="hidden pointer-events-auto w-full max-w-sm bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-extrabold text-lg sm:text-xl py-3.5 sm:py-4 px-8 rounded-full shadow-xl transform transition-transform hover:scale-105 active:scale-95 border-4 border-white cursor-pointer">
+                         NEXT ➔
+                     </button>
+                 </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script>
+        const topics = [
+            { id: 'telling-time', title: 'Telling Time (Jam)', icon: '⏱️', color: 'bg-red-400' },
+            { id: 'weather', title: 'Weather (Cuaca)', icon: '⛅', color: 'bg-blue-400' },
+            { id: 'hobbies', title: 'Hobbies (Hobi)', icon: '🎨', color: 'bg-purple-400' },
+            { id: 'daily-activities', title: 'Daily Activities', icon: '🏃', color: 'bg-orange-400' },
+            { id: 'school-subjects', title: 'School Subjects', icon: '📚', color: 'bg-yellow-400' },
+            { id: 'places', title: 'Places Around Us', icon: '🏥', color: 'bg-teal-400' },
+            { id: 'describing-people', title: 'Describing People', icon: '🧑', color: 'bg-pink-400' },
+            { id: 'possessive', title: 'Possessive', icon: '🎒', color: 'bg-indigo-400' },
+            { id: 'there-is-are', title: 'There is / There are', icon: '🍎', color: 'bg-green-500' },
+            { id: 'present-continuous', title: 'Present Continuous', icon: '📖', color: 'bg-cyan-500' },
+            { id: 'body-parts', title: 'Parts of Body (Tubuh)', icon: '👁️', color: 'bg-rose-400' },
+            { id: 'transportation', title: 'Transportation', icon: '🚗', color: 'bg-amber-500' },
+            { id: 'rooms', title: 'Rooms (Ruangan)', icon: '🏠', color: 'bg-emerald-500' },
+            { id: 'quantifiers', title: 'Quantifiers (Jumlah)', icon: '🔢', color: 'bg-violet-400' },
+            { id: 'feelings', title: 'Feelings (Perasaan)', icon: '😊', color: 'bg-pink-500' },
+            { id: 'currencies', title: 'Currencies (Mata Uang)', icon: '💵', color: 'bg-lime-500' },
+            { id: 'dates', title: 'Dates (Tanggal & Hari)', icon: '📅', color: 'bg-sky-500' },
+            { id: 'animals', title: 'Animals (Nama Hewan)', icon: '🦁', color: 'bg-amber-500' },
+            { id: 'foods', title: 'Foods & Drinks (Makanan)', icon: '🍕', color: 'bg-rose-500' },
+            { id: 'tastes', title: 'Tastes (Rasa Makanan)', icon: '🍋', color: 'bg-fuchsia-500' }
+        ];
+
+        // Question Bank organized by Topic and Difficulty Level (Easy, Medium, Hard)
+        const questionBank = {
+            'telling-time': {
+                easy: [
+                    { q: "Jam 7 tepat", eng: "Seven o'clock" },
+                    { q: "Jam 12 tepat", eng: "Twelve o'clock" },
+                    { q: "Setengah empat", eng: "Half past three" },
+                    { q: "Jam 9 lewat seperempat", eng: "A quarter past nine" },
+                    { q: "Jam 6 kurang seperempat", eng: "A quarter to six" },
+                    { q: "Setengah dua", eng: "Half past one" },
+                    { q: "Jam 10 lewat sepuluh", eng: "Ten past ten" },
+                    { q: "Jam 8 kurang lima", eng: "Five to eight" },
+                    { q: "Tengah hari", eng: "Midday / Noon" },
+                    { q: "Tengah malam", eng: "Midnight" },
+                    { q: "Pagi hari", eng: "Morning" },
+                    { q: "Siang / Sore hari", eng: "Afternoon" },
+                    { q: "Malam hari", eng: "Night" },
+                    { q: "Jam dua tepat", eng: "Two o'clock" },
+                    { q: "Jam 11 lewat dua puluh", eng: "Twenty past eleven" }
+                ],
+                medium: [
+                    { q: "We go to school at ........ in the morning (07.00).", eng: "seven o'clock" },
+                    { q: "It is 12.00 PM, which means it is ........ .", eng: "noon / midday" },
+                    { q: "Half past three is written as ........ .", eng: "03.30" },
+                    { q: "A quarter past nine means ........ minutes past nine.", eng: "fifteen" },
+                    { q: "We sleep in the bed at ........ .", eng: "night" },
+                    { q: "Breakfast is eaten in the ........ .", eng: "morning" },
+                    { q: "08.00 AM is eight o'clock in the ........ .", eng: "morning" },
+                    { q: "12.00 AM in the middle of the night is called ........ .", eng: "midnight" },
+                    { q: "A quarter to six means 15 minutes before ........ o'clock.", eng: "six" },
+                    { q: "Ten past ten means ten minutes after ........ o'clock.", eng: "ten" },
+                    { q: "We eat lunch in the ........ .", eng: "afternoon" },
+                    { q: "Five to eight means 5 minutes before ........ o'clock.", eng: "eight" },
+                    { q: "Two o'clock in numbers is ........ .", eng: "02.00" },
+                    { q: "Twenty past eleven means 20 minutes past ........ .", eng: "eleven" },
+                    { q: "Half past one is written as ........ .", eng: "01.30" }
+                ],
+                hard: [
+                    { q: "I wake up at ........ in the morning and go to sleep at ........ at night.", eng: "six o'clock ... nine o'clock" },
+                    { q: "We have breakfast in the ........ and dinner in the ........ .", eng: "morning ... evening / night" },
+                    { q: "The clock shows 07.15 which is ........ past ........ .", eng: "a quarter ... seven" },
+                    { q: "12.00 in the day is ........ and 12.00 at night is ........ .", eng: "noon ... midnight" },
+                    { q: "05.45 is a quarter to ........ and 06.15 is a quarter past ........ .", eng: "six ... six" },
+                    { q: "School starts at ........ in the morning and ends at ........ in the afternoon.", eng: "seven o'clock ... one o'clock" },
+                    { q: "03.30 is ........ past three and 04.30 is ........ past four.", eng: "half ... half" },
+                    { q: "At ........ we see the sun, and at ........ we see the moon.", eng: "day / morning ... night" },
+                    { q: "10.10 is ........ past ten and 09.50 is ten to ........ .", eng: "ten ... ten" },
+                    { q: "01.30 is half past ........ and 02.30 is half past ........ .", eng: "one ... two" },
+                    { q: "We study in the ........ and play in the ........ .", eng: "morning ... afternoon" },
+                    { q: "08.55 is five minutes to ........ and 08.05 is five minutes past ........ .", eng: "nine ... eight" },
+                    { q: "The short hand shows the ........ and the long hand shows the ........ .", eng: "hour ... minute" },
+                    { q: "04.45 is a quarter to ........ and 05.15 is a quarter past ........ .", eng: "five ... five" },
+                    { q: "11.20 is twenty past ........ and 11.40 is twenty to ........ .", eng: "eleven ... twelve" }
+                ]
+            },
+            'weather': {
+                easy: [
+                    { q: "Hujan", eng: "Rainy" },
+                    { q: "Cerah", eng: "Sunny" },
+                    { q: "Berawan", eng: "Cloudy" },
+                    { q: "Berangin", eng: "Windy" },
+                    { q: "Bersalju", eng: "Snowy" },
+                    { q: "Badai", eng: "Stormy" },
+                    { q: "Panas", eng: "Hot" },
+                    { q: "Dingin", eng: "Cold" },
+                    { q: "Berkabut", eng: "Foggy" },
+                    { q: "Pelangi", eng: "Rainbow" },
+                    { q: "Petir / Halilintar", eng: "Thunder" },
+                    { q: "Hangat", eng: "Warm" },
+                    { q: "Cuaca Hujan", eng: "Rainy weather" },
+                    { q: "Musim Kemarau", eng: "Dry season" },
+                    { q: "Musim Hujan", eng: "Rainy season" }
+                ],
+                medium: [
+                    { q: "It is ........ outside, so take an umbrella.", eng: "rainy" },
+                    { q: "The sun is shining bright, today is very ........ .", eng: "sunny" },
+                    { q: "The sky is full of clouds, it is a ........ day.", eng: "cloudy" },
+                    { q: "The wind is blowing hard, today is ........ .", eng: "windy" },
+                    { q: "In winter, the weather is very ........ .", eng: "cold" },
+                    { q: "In summer, the weather feels very ........ .", eng: "hot" },
+                    { q: "Look at the colorful ........ in the sky after the rain!", eng: "rainbow" },
+                    { q: "I hear loud ........ during the heavy rain.", eng: "thunder" },
+                    { q: "It is snowing outside, today is ........ .", eng: "snowy" },
+                    { q: "Be careful driving because the road is very ........ .", eng: "foggy" },
+                    { q: "We like to swim when the weather is ........ .", eng: "warm / hot" },
+                    { q: "There is a big storm coming, today is ........ .", eng: "stormy" },
+                    { q: "Plants grow well in the ........ season.", eng: "rainy" },
+                    { q: "It rarely rains during the ........ season.", eng: "dry" },
+                    { q: "Wear your jacket when it is ........ outside.", eng: "cold / windy" }
+                ],
+                hard: [
+                    { q: "When it is ........ , we wear a raincoat, and when it is ........ , we wear sunglasses.", eng: "rainy ... sunny" },
+                    { q: "Today is very ........ and ........ with heavy rain and thunder.", eng: "windy ... stormy" },
+                    { q: "In winter it is ........ and ........ with snow everywhere.", eng: "cold ... snowy" },
+                    { q: "The sun makes the day ........ and the wind makes it ........ .", eng: "hot ... cool" },
+                    { q: "After the ........ rain, a beautiful ........ appeared in the sky.", eng: "heavy ... rainbow" },
+                    { q: "In the ........ season it rains every day, but in the ........ season it is dry.", eng: "rainy ... dry" },
+                    { q: "It is ........ outside, so wear a warm coat and drink ........ tea.", eng: "cold ... hot" },
+                    { q: "The weather is ........ today, so we can fly a kite on a ........ day.", eng: "windy ... sunny" },
+                    { q: "When it is ........ you need an umbrella, but when it is ........ you need a fan.", eng: "rainy ... hot" },
+                    { q: "The morning is ........ and foggy, but the afternoon becomes ........ .", eng: "cold ... sunny" },
+                    { q: "Listen to the loud ........ and see the bright ........ in the storm.", eng: "thunder ... lightning" },
+                    { q: "In spring the air is ........ , but in winter the air is ........ .", eng: "warm ... cold" },
+                    { q: "It is too ........ to play outside, let's stay inside where it is ........ .", eng: "hot / stormy ... cool" },
+                    { q: "The sky is ........ today and it looks like it will become ........ soon.", eng: "cloudy ... rainy" },
+                    { q: "When it is ........ we drink ice water, and when it is ........ we drink warm milk.", eng: "hot ... cold" }
+                ]
+            },
+            'hobbies': {
+                easy: [
+                    { q: "Membaca", eng: "Reading" },
+                    { q: "Berenang", eng: "Swimming" },
+                    { q: "Memancing", eng: "Fishing" },
+                    { q: "Menari", eng: "Dancing" },
+                    { q: "Menyanyi", eng: "Singing" },
+                    { q: "Memasak", eng: "Cooking" },
+                    { q: "Bersepeda", eng: "Cycling" },
+                    { q: "Melukis", eng: "Painting" },
+                    { q: "Berkebun", eng: "Gardening" },
+                    { q: "Bermain Bola", eng: "Playing Football" },
+                    { q: "Bermain Musik", eng: "Playing Music" },
+                    { q: "Bermain Catur", eng: "Playing Chess" },
+                    { q: "Fotografi", eng: "Photography" },
+                    { q: "Menggambar", eng: "Drawing" },
+                    { q: "Menulis cerita", eng: "Writing stories" }
+                ],
+                medium: [
+                    { q: "Budi ........ movies with his friend.", eng: "is watching" },
+                    { q: "Siti loves ........ books in the school library.", eng: "reading" },
+                    { q: "Dini goes to the pool because her hobby is ........ .", eng: "swimming" },
+                    { q: "My father likes ........ fish in the river.", eng: "fishing" },
+                    { q: "She likes ........ songs on stage.", eng: "singing" },
+                    { q: "My mother is ........ delicious food in the kitchen.", eng: "cooking" },
+                    { q: "Andi goes to school by ........ his bicycle.", eng: "riding / cycling" },
+                    { q: "They are ........ football on the field.", eng: "playing" },
+                    { q: "He likes ........ pictures with his camera.", eng: "taking" },
+                    { q: "She is ........ a nice picture on paper.", eng: "drawing / painting" },
+                    { q: "We like ........ trees and flowers in the garden.", eng: "planting / gardening" },
+                    { q: "My brother enjoys ........ chess with his grandfather.", eng: "playing" },
+                    { q: "She likes ........ traditional dances.", eng: "dancing" },
+                    { q: "He is ........ a storybook in his bedroom.", eng: "reading" },
+                    { q: "They like ........ video games on weekend.", eng: "playing" }
+                ],
+                hard: [
+                    { q: "Budi ........ movie and ........... cake with his friend.", eng: "is watching ... eating" },
+                    { q: "Siti likes ........ books and ........ stories in her notebook.", eng: "reading ... writing" },
+                    { q: "They like ........ football in the field and ........ music at home.", eng: "playing ... listening to" },
+                    { q: "My brother is ........ guitar and my sister is ........ a song.", eng: "playing ... singing" },
+                    { q: "My mother likes ........ food in the kitchen and ........ plants in the garden.", eng: "cooking ... gardening" },
+                    { q: "He is ........ his bicycle to the river to go ........ .", eng: "riding ... fishing" },
+                    { q: "She is ........ a picture with colors and ........ it on the wall.", eng: "painting ... hanging" },
+                    { q: "They are ........ in the swimming pool and ........ fresh juice.", eng: "swimming ... drinking" },
+                    { q: "In the afternoon, Budi is ........ chess and his friend is ........ TV.", eng: "playing ... watching" },
+                    { q: "She loves ........ traditional dance and ........ beautiful costumes.", eng: "dancing ... wearing" },
+                    { q: "My dad likes ........ photos with camera and ........ them online.", eng: "taking ... sharing" },
+                    { q: "We enjoy ........ tents and ........ around the campfire.", eng: "camping ... singing" },
+                    { q: "He is ........ a mountain and ........ beautiful scenery.", eng: "hiking ... capturing / viewing" },
+                    { q: "My sister likes ........ clothes for her doll and ........ scarves.", eng: "sewing ... knitting" },
+                    { q: "They like ........ basketball in court and ........ in the pool.", eng: "playing ... swimming" }
+                ]
+            },
+            'daily-activities': {
+                easy: [
+                    { q: "Bangun tidur", eng: "Wake up" },
+                    { q: "Mandi", eng: "Take a bath" },
+                    { q: "Sarapan", eng: "Have breakfast" },
+                    { q: "Pergi ke sekolah", eng: "Go to school" },
+                    { q: "Belajar", eng: "Study" },
+                    { q: "Bermain", eng: "Play" },
+                    { q: "Pulang ke rumah", eng: "Go home" },
+                    { q: "Makan siang", eng: "Have lunch" },
+                    { q: "Menonton TV", eng: "Watch TV" },
+                    { q: "Tidur", eng: "Go to sleep" },
+                    { q: "Mencuci tangan", eng: "Wash hands" },
+                    { q: "Menggosok gigi", eng: "Brush teeth" },
+                    { q: "Merapikan tempat tidur", eng: "Make the bed" },
+                    { q: "Mengerjakan PR", eng: "Do homework" },
+                    { q: "Makan malam", eng: "Have dinner" }
+                ],
+                medium: [
+                    { q: "I ........ my teeth every morning and night.", eng: "brush" },
+                    { q: "Every morning at 6 AM, I ........ up.", eng: "wake" },
+                    { q: "She ........ her homework after coming home.", eng: "does" },
+                    { q: "We ........ breakfast before going to school.", eng: "have / eat" },
+                    { q: "He ........ a bath in the bathroom.", eng: "takes" },
+                    { q: "Siti ........ to school by bus every day.", eng: "goes" },
+                    { q: "They ........ football in the afternoon.", eng: "play" },
+                    { q: "I ........ hands before eating food.", eng: "wash" },
+                    { q: "We ........ lunch at 12.00 PM.", eng: "have / eat" },
+                    { q: "He ........ TV in the living room.", eng: "watches" },
+                    { q: "She ........ her bed every morning.", eng: "makes" },
+                    { q: "They ........ home from school at 2 PM.", eng: "go / return" },
+                    { q: "We ........ dinner together with family.", eng: "have / eat" },
+                    { q: "I ........ to sleep at 9 PM.", eng: "go" },
+                    { q: "Students ........ hard in the classroom.", eng: "study" }
+                ],
+                hard: [
+                    { q: "Every morning I ........ at 6 AM and ........ my breakfast.", eng: "wake up ... eat / have" },
+                    { q: "He ........ his hands clean before ........ his lunch.", eng: "washes ... eating" },
+                    { q: "She ........ her teeth and ........ a bath in the bathroom.", eng: "brushes ... takes" },
+                    { q: "We ........ to school at 7 AM and ........ back home at 2 PM.", eng: "go ... return / go" },
+                    { q: "After school, I ........ my homework and ........ TV.", eng: "do ... watch" },
+                    { q: "They ........ dinner at 7 PM and ........ to sleep at 9 PM.", eng: "have / eat ... go" },
+                    { q: "She ........ her bed after she ........ up.", eng: "makes ... wakes" },
+                    { q: "He ........ his bicycle to school and ........ hard in class.", eng: "rides ... studies" },
+                    { q: "We ........ football in the afternoon and ........ shower afterwards.", eng: "play ... take" },
+                    { q: "I ........ my hands with soap and ........ my face.", eng: "wash ... clean / wash" },
+                    { q: "She ........ to music while ........ her room.", eng: "listens ... cleaning" },
+                    { q: "They ........ lunch at canteen and ........ with friends.", eng: "eat / have ... talk / play" },
+                    { q: "My father ........ to work by car and ........ home at 5 PM.", eng: "goes ... comes / returns" },
+                    { q: "I ........ books in library and ........ notes in class.", eng: "read ... write" },
+                    { q: "She ........ early in the morning and ........ jog in the park.", eng: "wakes up ... goes" }
+                ]
+            },
+            'school-subjects': {
+                easy: [
+                    { q: "Matematika", eng: "Math" },
+                    { q: "Ilmu Pengetahuan Alam (IPA)", eng: "Science" },
+                    { q: "Ilmu Pengetahuan Sosial (IPS)", eng: "Social Studies" },
+                    { q: "Bahasa Inggris", eng: "English" },
+                    { q: "Olahraga", eng: "PE (Physical Education)" },
+                    { q: "Seni Budaya", eng: "Art" },
+                    { q: "Sejarah", eng: "History" },
+                    { q: "Komputer / TIK", eng: "ICT / Computer" },
+                    { q: "Agama", eng: "Religion" },
+                    { q: "Musik", eng: "Music" },
+                    { q: "Bahasa Indonesia", eng: "Indonesian Language" },
+                    { q: "Pancasila / PKn", eng: "Civics" },
+                    { q: "Kerajinan Tangan", eng: "Crafts" },
+                    { q: "Geografi", eng: "Geography" },
+                    { q: "Menulis Halus", eng: "Handwriting" }
+                ],
+                medium: [
+                    { q: "We learn numbers and counting in ........ class.", eng: "Math" },
+                    { q: "We learn drawing and painting in ........ class.", eng: "Art" },
+                    { q: "We play sports and run in ........ class.", eng: "PE" },
+                    { q: "We study plants and animals in ........ class.", eng: "Science" },
+                    { q: "We speak and write in English in ........ class.", eng: "English" },
+                    { q: "We learn how to use computers in ........ class.", eng: "ICT / Computer" },
+                    { q: "We sing songs and play instruments in ........ class.", eng: "Music" },
+                    { q: "We learn about past events in ........ class.", eng: "History" },
+                    { q: "We learn about countries and maps in ........ class.", eng: "Geography" },
+                    { q: "We practice neat writing in ........ class.", eng: "Handwriting" },
+                    { q: "We learn about rules and nation in ........ class.", eng: "Civics" },
+                    { q: "We make paper crafts in ........ class.", eng: "Crafts" },
+                    { q: "We learn Indonesian grammar in ........ class.", eng: "Indonesian Language" },
+                    { q: "We study society and people in ........ class.", eng: "Social Studies" },
+                    { q: "We learn moral values in ........ class.", eng: "Religion" }
+                ],
+                hard: [
+                    { q: "On Monday we study ........ to count numbers and ........ to play sports.", eng: "Math ... PE" },
+                    { q: "My favorite subjects are ........ for drawing and ........ for singing.", eng: "Art ... Music" },
+                    { q: "In the laboratory we study ........ and in computer lab we study ........ .", eng: "Science ... ICT / Computer" },
+                    { q: "We learn English vocabulary in ........ class and map reading in ........ class.", eng: "English ... Geography" },
+                    { q: "He likes ........ because he loves numbers, but she likes ........ for sports.", eng: "Math ... PE" },
+                    { q: "We study history of our country in ........ and citizenship in ........ .", eng: "History ... Civics" },
+                    { q: "In ........ class we make paper origami and in ........ class we paint pictures.", eng: "Crafts ... Art" },
+                    { q: "We learn about nature in ........ and about society in ........ .", eng: "Science ... Social Studies" },
+                    { q: "Today we have ........ test for numbers and ........ test for computer skills.", eng: "Math ... ICT" },
+                    { q: "She practices piano in ........ class and basketball in ........ class.", eng: "Music ... PE" },
+                    { q: "I read stories in ........ class and learn foreign words in ........ class.", eng: "Indonesian ... English" },
+                    { q: "We write neatly in ........ class and study holy books in ........ class.", eng: "Handwriting ... Religion" },
+                    { q: "He studies Earth maps in ........ and ancient kings in ........ .", eng: "Geography ... History" },
+                    { q: "They do experiments in ........ and draw paintings in ........ .", eng: "Science ... Art" },
+                    { q: "In the morning we have ........ and in the afternoon we have ........ .", eng: "Math ... English" }
+                ]
+            },
+            'places': {
+                easy: [
+                    { q: "Rumah Sakit", eng: "Hospital" },
+                    { q: "Sekolah", eng: "School" },
+                    { q: "Pasar", eng: "Market" },
+                    { q: "Bank", eng: "Bank" },
+                    { q: "Taman", eng: "Park" },
+                    { q: "Perpustakaan", eng: "Library" },
+                    { q: "Kantor Pos", eng: "Post Office" },
+                    { q: "Bandara", eng: "Airport" },
+                    { q: "Stasiun Kereta", eng: "Train Station" },
+                    { q: "Kebun Binatang", eng: "Zoo" },
+                    { q: "Restoran", eng: "Restaurant" },
+                    { q: "Bioskop", eng: "Cinema" },
+                    { q: "Kantor Polisi", eng: "Police Station" },
+                    { q: "Supermarket", eng: "Supermarket" },
+                    { q: "Museum", eng: "Museum" }
+                ],
+                medium: [
+                    { q: "Doctors and nurses work at the ........ .", eng: "hospital" },
+                    { q: "Students go to ........ to study.", eng: "school" },
+                    { q: "We borrow books from the ........ .", eng: "library" },
+                    { q: "We buy fresh vegetables at the ........ .", eng: "market" },
+                    { q: "Airplanes land and take off at the ........ .", eng: "airport" },
+                    { q: "We see wild animals like lions at the ........ .", eng: "zoo" },
+                    { q: "We save or withdraw money at the ........ .", eng: "bank" },
+                    { q: "We send letters and packages at the ........ .", eng: "post office" },
+                    { q: "We watch new movies at the ........ .", eng: "cinema" },
+                    { q: "We play on slides and swings at the ........ .", eng: "park" },
+                    { q: "We take a train at the ........ .", eng: "train station" },
+                    { q: "Police officers work at the ........ .", eng: "police station" },
+                    { q: "We buy groceries at the ........ .", eng: "supermarket" },
+                    { q: "We eat delicious food at the ........ .", eng: "restaurant" },
+                    { q: "We see historical items at the ........ .", eng: "museum" }
+                ],
+                hard: [
+                    { q: "Mother buys food at the ........ and saves money at the ........ .", eng: "market / supermarket ... bank" },
+                    { q: "Sick people go to the ........ and students go to ........ .", eng: "hospital ... school" },
+                    { q: "We catch a plane at the ........ and catch a train at the ........ .", eng: "airport ... train station" },
+                    { q: "Children play in the ........ and read books in the ........ .", eng: "park ... library" },
+                    { q: "We see lions at the ........ and watch movies at the ........ .", eng: "zoo ... cinema" },
+                    { q: "A policeman works at the ........ and a postman works at the ........ .", eng: "police station ... post office" },
+                    { q: "We eat food at the ........ and buy snacks at the ........ .", eng: "restaurant ... supermarket" },
+                    { q: "We see ancient statues at the ........ and borrow books at the ........ .", eng: "museum ... library" },
+                    { q: "A pilot works at the ........ and a doctor works at the ........ .", eng: "airport ... hospital" },
+                    { q: "You can buy stamps at the ........ and deposit money at the ........ .", eng: "post office ... bank" },
+                    { q: "Students study in ........ and play games in the ........ .", eng: "school ... park" },
+                    { q: "We buy fresh fish at the ........ and watch films at the ........ .", eng: "market ... cinema" },
+                    { q: "We park our car near the ........ and enter the ........ to eat.", eng: "supermarket ... restaurant" },
+                    { q: "A train leaves from the ........ and a plane leaves from the ........ .", eng: "train station ... airport" },
+                    { q: "Wild animals live in the ........ and historical things are in the ........ .", eng: "zoo ... museum" }
+                ]
+            },
+            'describing-people': {
+                easy: [
+                    { q: "Tinggi", eng: "Tall" },
+                    { q: "Pendek", eng: "Short" },
+                    { q: "Gemuk", eng: "Fat / Chubby" },
+                    { q: "Kurus", eng: "Thin" },
+                    { q: "Kuat", eng: "Strong" },
+                    { q: "Lemah", eng: "Weak" },
+                    { q: "Tua", eng: "Old" },
+                    { q: "Muda", eng: "Young" },
+                    { q: "Cantik", eng: "Beautiful" },
+                    { q: "Tampan", eng: "Handsome" },
+                    { q: "Ramah", eng: "Friendly" },
+                    { q: "Pintar", eng: "Smart" },
+                    { q: "Rambut keriting", eng: "Curly hair" },
+                    { q: "Rambut lurus", eng: "Straight hair" },
+                    { q: "Lucu / Jenaka", eng: "Funny" }
+                ],
+                medium: [
+                    { q: "Basketball players are usually very ........ .", eng: "tall" },
+                    { q: "A baby is very ........ and cute.", eng: "young" },
+                    { q: "My grandfather is 80 years ........ .", eng: "old" },
+                    { q: "He exercises every day, so he is very ........ .", eng: "strong" },
+                    { q: "She always smiles and says hello, she is very ........ .", eng: "friendly" },
+                    { q: "The prince is very ........ in his suit.", eng: "handsome" },
+                    { q: "The princess is wearing a ........ dress.", eng: "beautiful" },
+                    { q: "He gets top scores in school because he is ........ .", eng: "smart / clever" },
+                    { q: "The clown makes everyone laugh, he is very ........ .", eng: "funny" },
+                    { q: "She has long ........ hair without any waves.", eng: "straight" },
+                    { q: "He has small ringlets in his hair, it is ........ hair.", eng: "curly" },
+                    { q: "A jockey is usually ........ in height.", eng: "short" },
+                    { q: "The cute panda has a ........ body.", eng: "chubby / fat" },
+                    { q: "He needs to eat more food because he is too ........ .", eng: "thin" },
+                    { q: "Without exercise, your body becomes ........ .", eng: "weak" }
+                ],
+                hard: [
+                    { q: "Budi is ........ and strong, but his younger brother is ........ .", eng: "tall ... short" },
+                    { q: "My grandfather is ........ with white hair, but I am ........ .", eng: "old ... young" },
+                    { q: "The boy is very ........ in his suit and the girl is ........ in her dress.", eng: "handsome ... beautiful" },
+                    { q: "He has ........ hair while his sister has ........ hair.", eng: "curly ... straight" },
+                    { q: "The athlete is ........ and fast, but the sick man is ........ .", eng: "strong ... weak" },
+                    { q: "She is very ........ in class and always ........ to everyone.", eng: "smart ... friendly" },
+                    { q: "The comedian is ........ and tells ........ jokes.", eng: "funny ... funny" },
+                    { q: "He is ........ because he eats healthy food, not ........ .", eng: "thin / fit ... fat" },
+                    { q: "My father is ........ and has ........ hair.", eng: "tall ... short / straight" },
+                    { q: "She has a ........ smile and a ........ personality.", eng: "beautiful ... friendly" },
+                    { q: "The weightlifter is very ........ and can lift ........ weights.", eng: "strong ... heavy" },
+                    { q: "He is ........ at math and ........ at sports.", eng: "smart ... good" },
+                    { q: "The baby has ........ cheeks and is very ........ .", eng: "chubby ... young / cute" },
+                    { q: "My grandmother is ........ but she is very ........ to us.", eng: "old ... friendly / kind" },
+                    { q: "He has ........ body and ........ hair.", eng: "tall ... black / short" }
+                ]
+            },
+            'possessive': {
+                easy: [
+                    { q: "Buku saya", eng: "My book" },
+                    { q: "Tas kamu", eng: "Your bag" },
+                    { q: "Mobilnya (lk)", eng: "His car" },
+                    { q: "Rumahnya (pr)", eng: "Her house" },
+                    { q: "Kucing kita", eng: "Our cat" },
+                    { q: "Sekolah mereka", eng: "Their school" },
+                    { q: "Pensil saya", eng: "My pencil" },
+                    { q: "Sepatu kamu", eng: "Your shoes" },
+                    { q: "Topinya (lk)", eng: "His hat" },
+                    { q: "Kacamatanya (pr)", eng: "Her glasses" },
+                    { q: "Mainan mereka", eng: "Their toys" },
+                    { q: "Anjing kami", eng: "Our dog" },
+                    { q: "Baju saya", eng: "My shirt" },
+                    { q: "Sepeda kamu", eng: "Your bicycle" },
+                    { q: "Bonekanya (pr)", eng: "Her doll" }
+                ],
+                medium: [
+                    { q: "I bought this bag, so it is ........ bag.", eng: "my" },
+                    { q: "Is this ........ pencil, Budi? You dropped it.", eng: "your" },
+                    { q: "Budi lost ........ wallet yesterday.", eng: "his" },
+                    { q: "Siti is brushing ........ long hair.", eng: "her" },
+                    { q: "We live in this building, it is ........ house.", eng: "our" },
+                    { q: "They go to school by ........ school bus.", eng: "their" },
+                    { q: "I love ........ pet cat very much.", eng: "my" },
+                    { q: "Don't forget to clean ........ shoes, Andi!", eng: "your" },
+                    { q: "John wears ........ red hat today.", eng: "his" },
+                    { q: "Mary is playing with ........ doll.", eng: "her" },
+                    { q: "The students put ........ books in the bag.", eng: "their" },
+                    { q: "We love ........ country, Indonesia.", eng: "our" },
+                    { q: "He is riding ........ new bicycle.", eng: "his" },
+                    { q: "She wears ........ beautiful ring.", eng: "her" },
+                    { q: "I wear ........ school uniform every day.", eng: "my" }
+                ],
+                hard: [
+                    { q: "This is ........ bicycle and that is ........ car.", eng: "my ... his" },
+                    { q: "She loves ........ cat and he loves ........ dog.", eng: "her ... his" },
+                    { q: "We bring ........ bags and they bring ........ books.", eng: "our ... their" },
+                    { q: "I washed ........ shirt and you washed ........ pants.", eng: "my ... your" },
+                    { q: "Budi lost ........ cap and Siti lost ........ doll.", eng: "his ... her" },
+                    { q: "This is ........ classroom and that is ........ office.", eng: "our ... their" },
+                    { q: "I clean ........ shoes and he cleans ........ boots.", eng: "my ... his" },
+                    { q: "She visits ........ grandmother and we visit ........ uncle.", eng: "her ... our" },
+                    { q: "Where is ........ pencil? I have ........ pen here.", eng: "your ... my" },
+                    { q: "The boys play with ........ football and the girls play with ........ dolls.", eng: "their ... their" },
+                    { q: "He washes ........ car and she washes ........ bicycle.", eng: "his ... her" },
+                    { q: "We love ........ school and respect ........ teachers.", eng: "our ... our" },
+                    { q: "I take ........ umbrella because it is ........ turn to go.", eng: "my ... my" },
+                    { q: "She combs ........ hair while he puts on ........ shoes.", eng: "her ... his" },
+                    { q: "They drive ........ car to ........ house.", eng: "their ... our" }
+                ]
+            },
+            'there-is-are': {
+                easy: [
+                    { q: "Ada sebuah apel", eng: "There is an apple" },
+                    { q: "Ada tiga buku", eng: "There are three books" },
+                    { q: "Ada seekor kucing", eng: "There is a cat" },
+                    { q: "Ada lima burung", eng: "There are five birds" },
+                    { q: "Ada seorang guru", eng: "There is a teacher" },
+                    { q: "Ada banyak siswa", eng: "There are many students" },
+                    { q: "Ada sebuah mobil", eng: "There is a car" },
+                    { q: "Ada dua meja", eng: "There are two tables" },
+                    { q: "Ada sebuah payung", eng: "There is an umbrella" },
+                    { q: "Ada sepuluh pensil", eng: "There are ten pencils" },
+                    { q: "Ada seekor anjing", eng: "There is a dog" },
+                    { q: "Ada empat kursi", eng: "There are four chairs" },
+                    { q: "Ada sebuah penggaris", eng: "There is a ruler" },
+                    { q: "Ada enam bola", eng: "There are six balls" },
+                    { q: "Ada seekor gajah", eng: "There is an elephant" }
+                ],
+                medium: [
+                    { q: "........ three books on the wooden table.", eng: "There are" },
+                    { q: "........ a cute cat under the chair.", eng: "There is" },
+                    { q: "........ five birds flying in the sky.", eng: "There are" },
+                    { q: "........ an apple in my lunchbox.", eng: "There is" },
+                    { q: "........ many students in the school hall.", eng: "There are" },
+                    { q: "........ a red car parked outside.", eng: "There is" },
+                    { q: "........ ten pencils inside the pencil case.", eng: "There are" },
+                    { q: "........ an umbrella near the door.", eng: "There is" },
+                    { q: "........ two big tables in the dining room.", eng: "There are" },
+                    { q: "........ a dog barking at the gate.", eng: "There is" },
+                    { q: "........ four chairs in the classroom.", eng: "There are" },
+                    { q: "........ an elephant at the zoo.", eng: "There is" },
+                    { q: "........ six balls in the basket.", eng: "There are" },
+                    { q: "........ a ruler on my desk.", eng: "There is" },
+                    { q: "........ twenty students in our class.", eng: "There are" }
+                ],
+                hard: [
+                    { q: "........ an apple on the table and ........ two oranges.", eng: "There is ... there are" },
+                    { q: "In the garden ........ a big tree and ........ five red flowers.", eng: "there is ... there are" },
+                    { q: "........ one teacher in class and ........ twenty students.", eng: "There is ... there are" },
+                    { q: "On the shelf ........ many books and ........ a clock.", eng: "there are ... there is" },
+                    { q: "In the park ........ a playground and ........ many children.", eng: "there is ... there are" },
+                    { q: "At the zoo ........ an elephant and ........ three lions.", eng: "there is ... there are" },
+                    { q: "Inside my bag ........ a pencil case and ........ four notebooks.", eng: "there is ... there are" },
+                    { q: "On the street ........ a bus and ........ many cars.", eng: "there is ... there are" },
+                    { q: "In the kitchen ........ a refrigerator and ........ two stoves.", eng: "there is ... there are" },
+                    { q: "On the plate ........ a piece of bread and ........ three cookies.", eng: "there is ... there are" },
+                    { q: "In the sky ........ a rainbow and ........ many clouds.", eng: "there is ... there are" },
+                    { q: "Under the tree ........ a dog and ........ two cats.", eng: "there is ... there are" },
+                    { q: "In the box ........ an eraser and ........ ten pencils.", eng: "there is ... there are" },
+                    { q: "On the wall ........ a clock and ........ three pictures.", eng: "there is ... there are" },
+                    { q: "In the room ........ a bed and ........ two pillows.", eng: "there is ... there are" }
+                ]
+            },
+            'present-continuous': {
+                easy: [
+                    { q: "Saya sedang membaca", eng: "I am reading" },
+                    { q: "Dia (pr) sedang bernyanyi", eng: "She is singing" },
+                    { q: "Mereka sedang bermain", eng: "They are playing" },
+                    { q: "Dia (lk) sedang makan", eng: "He is eating" },
+                    { q: "Kami sedang belajar", eng: "We are studying" },
+                    { q: "Kucing itu sedang tidur", eng: "The cat is sleeping" },
+                    { q: "Saya sedang menulis", eng: "I am writing" },
+                    { q: "Dia (pr) sedang memasak", eng: "She is cooking" },
+                    { q: "Mereka sedang berlari", eng: "They are running" },
+                    { q: "Dia (lk) sedang berenang", eng: "He is swimming" },
+                    { q: "Saya sedang minum", eng: "I am drinking" },
+                    { q: "Kami sedang menari", eng: "We are dancing" },
+                    { q: "Dia (pr) sedang melukis", eng: "She is painting" },
+                    { q: "Dia (lk) sedang mendengarkan musik", eng: "He is listening to music" },
+                    { q: "Mereka sedang berjalan", eng: "They are walking" }
+                ],
+                medium: [
+                    { q: "Siti is ........ a song on the stage right now.", eng: "singing" },
+                    { q: "They are ........ football in the field.", eng: "playing" },
+                    { q: "He is ........ a book in the library.", eng: "reading" },
+                    { q: "Mother is ........ soup in the kitchen.", eng: "cooking" },
+                    { q: "I am ........ a letter to my friend.", eng: "writing" },
+                    { q: "We are ........ for our English test.", eng: "studying" },
+                    { q: "The dog is ........ fast in the garden.", eng: "running" },
+                    { q: "He is ........ in the swimming pool.", eng: "swimming" },
+                    { q: "She is ........ a glass of fresh milk.", eng: "drinking" },
+                    { q: "The students are ........ to traditional music.", eng: "dancing" },
+                    { q: "My father is ........ a cup of coffee.", eng: "drinking" },
+                    { q: "She is ........ a beautiful flower picture.", eng: "painting" },
+                    { q: "The cat is ........ on the sofa.", eng: "sleeping" },
+                    { q: "They are ........ to school together.", eng: "walking" },
+                    { q: "He is ........ to his favorite songs.", eng: "listening" }
+                ],
+                hard: [
+                    { q: "I am ........ a book while my sister is ........ TV.", eng: "reading ... watching" },
+                    { q: "He is ........ coffee and ........ a newspaper.", eng: "drinking ... reading" },
+                    { q: "She is ........ dinner in the kitchen while they are ........ the table.", eng: "cooking ... cleaning" },
+                    { q: "They are ........ football in the yard and ........ loudly.", eng: "playing ... shouting" },
+                    { q: "We are ........ English while the teacher is ........ on the board.", eng: "studying ... writing" },
+                    { q: "He is ........ in the pool and she is ........ on the bench.", eng: "swimming ... sitting" },
+                    { q: "My mother is ........ bread and I am ........ tea.", eng: "baking / making ... drinking" },
+                    { q: "The birds are ........ in the sky and singing ........ .", eng: "flying ... songs" },
+                    { q: "She is ........ a song and her brother is ........ guitar.", eng: "singing ... playing" },
+                    { q: "They are ........ fast because the bus is ........ away.", eng: "running ... driving" },
+                    { q: "I am ........ my homework while my brother is ........ games.", eng: "doing ... playing" },
+                    { q: "He is ........ a bicycle and ........ a helmet.", eng: "riding ... wearing" },
+                    { q: "She is ........ a picture and ........ it with colors.", eng: "drawing ... painting" },
+                    { q: "We are ........ lunch and ........ about our day.", eng: "eating / having ... talking" },
+                    { q: "The baby is ........ in bed and mother is ........ a lullaby.", eng: "sleeping ... singing" }
+                ]
+            },
+            'body-parts': {
+                easy: [
+                    { q: "Kepala", eng: "Head" },
+                    { q: "Mata", eng: "Eyes" },
+                    { q: "Telinga", eng: "Ears" },
+                    { q: "Hidung", eng: "Nose" },
+                    { q: "Mulut", eng: "Mouth" },
+                    { q: "Tangan", eng: "Hand" },
+                    { q: "Kaki (telapak)", eng: "Foot" },
+                    { q: "Kaki (tungkai)", eng: "Leg" },
+                    { q: "Jari tangan", eng: "Finger" },
+                    { q: "Jari kaki", eng: "Toe" },
+                    { q: "Bahu", eng: "Shoulder" },
+                    { q: "Lutut", eng: "Knee" },
+                    { q: "Rambut", eng: "Hair" },
+                    { q: "Gigi", eng: "Teeth" },
+                    { q: "Perut", eng: "Stomach" }
+                ],
+                medium: [
+                    { q: "We see colorful things with our two ........ .", eng: "eyes" },
+                    { q: "We listen to music with our ........ .", eng: "ears" },
+                    { q: "We kick the football with our ........ .", eng: "foot / leg" },
+                    { q: "We smell flowers with our ........ .", eng: "nose" },
+                    { q: "We chew food using our ........ .", eng: "teeth" },
+                    { q: "We wear a cap on our ........ .", eng: "head" },
+                    { q: "We hold a pencil with our ........ .", eng: "hand / fingers" },
+                    { q: "We eat food with our ........ .", eng: "mouth" },
+                    { q: "We have ten ........ on our hands.", eng: "fingers" },
+                    { q: "We bend our leg at the ........ .", eng: "knee" },
+                    { q: "Comb your ........ every morning.", eng: "hair" },
+                    { q: "When you eat too much, your ........ feels full.", eng: "stomach" },
+                    { q: "We wear shoes on our ........ .", eng: "feet" },
+                    { q: "Carry your backpack on your ........ .", eng: "shoulders" },
+                    { q: "We have ten ........ on our feet.", eng: "toes" }
+                ],
+                hard: [
+                    { q: "We listen with our ........ and smell with our ........ .", eng: "ears ... nose" },
+                    { q: "Raise your ........ and touch your ........ .", eng: "hand ... head" },
+                    { q: "We see with our ........ and chew food with our ........ .", eng: "eyes ... teeth" },
+                    { q: "We kick with our ........ and write with our ........ .", eng: "foot / leg ... hand" },
+                    { q: "We wear a hat on our ........ and shoes on our ........ .", eng: "head ... feet" },
+                    { q: "Touch your ........ with your fingers and touch your ........ with your hands.", eng: "nose / knees ... head" },
+                    { q: "We have 10 ........ on our hands and 10 ........ on our feet.", eng: "fingers ... toes" },
+                    { q: "Brush your ........ twice a day and wash your ........ before eating.", eng: "teeth ... hands" },
+                    { q: "Wash your ........ with soap and comb your ........ nicely.", eng: "face / hands ... hair" },
+                    { q: "Bend your ........ when you jump and swing your ........ when you walk.", eng: "knees ... arms" },
+                    { q: "We speak with our ........ and hear with our ........ .", eng: "mouth ... ears" },
+                    { q: "Put your bag on your ........ and walk with your ........ .", eng: "shoulders ... legs" },
+                    { q: "My ........ hurts after eating spicy food and my ........ hurts after running.", eng: "stomach ... leg / knee" },
+                    { q: "We hold things with our ........ and walk with our ........ .", eng: "hands ... feet" },
+                    { q: "Open your ........ to speak and close your ........ to sleep.", eng: "mouth ... eyes" }
+                ]
+            },
+            'transportation': {
+                easy: [
+                    { q: "Mobil", eng: "Car" },
+                    { q: "Sepeda Motor", eng: "Motorcycle" },
+                    { q: "Sepeda", eng: "Bicycle" },
+                    { q: "Bus", eng: "Bus" },
+                    { q: "Kereta Api", eng: "Train" },
+                    { q: "Pesawat Terbang", eng: "Airplane" },
+                    { q: "Kapal Laut", eng: "Ship" },
+                    { q: "Perahu", eng: "Boat" },
+                    { q: "Helikopter", eng: "Helicopter" },
+                    { q: "Truk", eng: "Truck" },
+                    { q: "Taksi", eng: "Taxi" },
+                    { q: "Ambulans", eng: "Ambulance" },
+                    { q: "Delman", eng: "Carriage" },
+                    { q: "Kapal Selam", eng: "Submarine" },
+                    { q: "Roket", eng: "Rocket" }
+                ],
+                medium: [
+                    { q: "Pilots fly an ........ in the sky.", eng: "airplane" },
+                    { q: "We travel across the ocean by ........ .", eng: "ship" },
+                    { q: "Many students go to school by school ........ .", eng: "bus" },
+                    { q: "A ........ moves on railway tracks.", eng: "train" },
+                    { q: "Sick people are carried in an ........ .", eng: "ambulance" },
+                    { q: "My father rides his ........ to work.", eng: "motorcycle / car" },
+                    { q: "I ride my ........ to the park.", eng: "bicycle" },
+                    { q: "A big ........ carries heavy goods on the highway.", eng: "truck" },
+                    { q: "We call a ........ when we need a private ride.", eng: "taxi" },
+                    { q: "Astronauts travel to space in a ........ .", eng: "rocket" },
+                    { q: "A ........ underwater is used by sailors.", eng: "submarine" },
+                    { q: "A small ........ floats on the lake.", eng: "boat" },
+                    { q: "A ........ has rotating blades on top to fly.", eng: "helicopter" },
+                    { q: "A horse pulls a traditional ........ .", eng: "carriage" },
+                    { q: "My family drives a family ........ on holiday.", eng: "car" }
+                ],
+                hard: [
+                    { q: "My father drives a ........ and I ride my ........ .", eng: "car ... bicycle" },
+                    { q: "A pilot flies an ........ and a captain sails a ........ .", eng: "airplane ... ship" },
+                    { q: "A ........ runs on tracks and a ........ runs on the road.", eng: "train ... bus" },
+                    { q: "Astronauts fly in a ........ and fishermen use a ........ .", eng: "rocket ... boat" },
+                    { q: "A ........ transports sick people and a ........ transports heavy goods.", eng: "ambulance ... truck" },
+                    { q: "We take a ........ on land and take a ........ across the sea.", eng: "train / bus ... ship" },
+                    { q: "Ride a ........ with a helmet or pedal a ........ for exercise.", eng: "motorcycle ... bicycle" },
+                    { q: "A ........ flies high in the air and a ........ travels deep underwater.", eng: "helicopter / plane ... submarine" },
+                    { q: "We took a ........ to the airport and then boarded an ........ .", eng: "taxi ... airplane" },
+                    { q: "A horse pulls a ........ and an engine powers a ........ .", eng: "carriage ... car" },
+                    { q: "A school ........ carries many kids and a private ........ carries one family.", eng: "bus ... car" },
+                    { q: "Travel by ........ on rails or travel by ........ in the sky.", eng: "train ... airplane" },
+                    { q: "A ........ floats on water while a ........ flies above clouds.", eng: "boat / ship ... plane" },
+                    { q: "You need a driver for a ........ and a pilot for a ........ .", eng: "bus / car ... helicopter" },
+                    { q: "Drive a ........ on two wheels or drive a ........ on four wheels.", eng: "motorcycle ... car" }
+                ]
+            },
+            'rooms': {
+                easy: [
+                    { q: "Kamar Tidur", eng: "Bedroom" },
+                    { q: "Kamar Mandi", eng: "Bathroom" },
+                    { q: "Ruang Tamu", eng: "Living room" },
+                    { q: "Dapur", eng: "Kitchen" },
+                    { q: "Ruang Makan", eng: "Dining room" },
+                    { q: "Garasi", eng: "Garage" },
+                    { q: "Halaman", eng: "Garden / Yard" },
+                    { q: "Ruang Kelas", eng: "Classroom" },
+                    { q: "Perpustakaan", eng: "Library" },
+                    { q: "Laboratorium", eng: "Laboratory" },
+                    { q: "Kantin", eng: "Canteen" },
+                    { q: "Ruang Guru", eng: "Teachers' room" },
+                    { q: "Toilet", eng: "Toilet" },
+                    { q: "Ruang Kepala Sekolah", eng: "Principal's office" },
+                    { q: "Gudang", eng: "Storage room" }
+                ],
+                medium: [
+                    { q: "Mother cooks delicious meals in the ........ .", eng: "kitchen" },
+                    { q: "We sleep in a soft bed in the ........ .", eng: "bedroom" },
+                    { q: "We take a shower in the ........ .", eng: "bathroom" },
+                    { q: "We welcome our guests in the ........ .", eng: "living room" },
+                    { q: "We eat dinner together in the ........ .", eng: "dining room" },
+                    { q: "Father parks his car in the ........ .", eng: "garage" },
+                    { q: "Students buy snacks in the school ........ .", eng: "canteen" },
+                    { q: "We read quietly in the ........ .", eng: "library" },
+                    { q: "Students study lessons in the ........ .", eng: "classroom" },
+                    { q: "Teachers work and rest in the ........ .", eng: "teachers' room" },
+                    { q: "We plant red roses in the ........ .", eng: "garden" },
+                    { q: "Wash your hands in the ........ .", eng: "toilet / bathroom" },
+                    { q: "Science experiments are done in the ........ .", eng: "laboratory" },
+                    { q: "Old items are stored in the ........ .", eng: "storage room" },
+                    { q: "The headmaster works in the ........ .", eng: "principal's office" }
+                ],
+                hard: [
+                    { q: "Mother cooks in the ........ and we eat in the ........ .", eng: "kitchen ... dining room" },
+                    { q: "We sleep in the ........ and take a bath in the ........ .", eng: "bedroom ... bathroom" },
+                    { q: "Park the car in the ........ and watch TV in the ........ .", eng: "garage ... living room" },
+                    { q: "Students study in the ........ and buy food in the ........ .", eng: "classroom ... canteen" },
+                    { q: "Read books in the ........ and do science tests in the ........ .", eng: "library ... laboratory" },
+                    { q: "Teachers meet in the ........ and headmaster stays in the ........ .", eng: "teachers' room ... principal's office" },
+                    { q: "Flowers grow in the ........ and cars are parked in the ........ .", eng: "garden ... garage" },
+                    { q: "Wash hands in the ........ and rest in your ........ .", eng: "bathroom / toilet ... bedroom" },
+                    { q: "Store boxes in the ........ and cook food in the ........ .", eng: "storage room ... kitchen" },
+                    { q: "Guests sit in the ........ and we eat together in the ........ .", eng: "living room ... dining room" },
+                    { q: "We borrow books from ........ and attend classes in ........ .", eng: "library ... classroom" },
+                    { q: "Sleep in your ........ and play in the outdoor ........ .", eng: "bedroom ... garden / yard" },
+                    { q: "Wash your face in the ........ and make tea in the ........ .", eng: "bathroom ... kitchen" },
+                    { q: "Eat lunch in the ........ and talk with teachers in the ........ .", eng: "canteen ... teachers' room" },
+                    { q: "Do experiments in the ........ and read quietly in the ........ .", eng: "laboratory ... library" }
+                ]
+            },
+            'quantifiers': {
+                easy: [
+                    { q: "Banyak (dapat dihitung)", eng: "Many" },
+                    { q: "Banyak (tidak dpt dihitung)", eng: "Much" },
+                    { q: "Banyak (keduanya)", eng: "A lot of" },
+                    { q: "Sedikit (dapat dihitung)", eng: "A few" },
+                    { q: "Sedikit (tidak dpt dihitung)", eng: "A little" },
+                    { q: "Beberapa", eng: "Some" },
+                    { q: "Ada (kalimat tanya/negatif)", eng: "Any" },
+                    { q: "Sepotong roti", eng: "A slice of bread" },
+                    { q: "Segelas air", eng: "A glass of water" },
+                    { q: "Secangkir teh", eng: "A cup of tea" },
+                    { q: "Semangkuk sup", eng: "A bowl of soup" },
+                    { q: "Sebotol susu", eng: "A bottle of milk" },
+                    { q: "Sepasang sepatu", eng: "A pair of shoes" },
+                    { q: "Selembar kertas", eng: "A sheet of paper" },
+                    { q: "Sekotak susu", eng: "A carton of milk" }
+                ],
+                medium: [
+                    { q: "May I have a ........ of water, please?", eng: "glass" },
+                    { q: "Father drinks a ........ of hot coffee every morning.", eng: "cup" },
+                    { q: "There are ........ books on the shelf.", eng: "many" },
+                    { q: "How ........ sugar do you need for your tea?", eng: "much" },
+                    { q: "I ate a ........ of warm noodle soup.", eng: "bowl" },
+                    { q: "She bought a ........ of fresh milk.", eng: "bottle / carton" },
+                    { q: "Can I have a ........ of bread?", eng: "slice" },
+                    { q: "I wear a new ........ of shoes.", eng: "pair" },
+                    { q: "Give me a ........ of paper to write.", eng: "sheet" },
+                    { q: "There are a ........ apples in the basket.", eng: "few" },
+                    { q: "Add a ........ sugar into my tea.", eng: "little" },
+                    { q: "I have ........ friends at school.", eng: "many / a lot of" },
+                    { q: "Do you have ........ pencils?", eng: "any" },
+                    { q: "I need ........ water to drink.", eng: "some" },
+                    { q: "There is ........ milk left in the glass.", eng: "some / a little" }
+                ],
+                hard: [
+                    { q: "I bought a ........ of bread and a ........ of milk.", eng: "slice ... bottle / carton" },
+                    { q: "Drink a ........ of water and a ........ of tea.", eng: "glass ... cup" },
+                    { q: "There are ........ students in the hall and ........ sugar in the jar.", eng: "many ... much" },
+                    { q: "I need a ........ of paper and a ........ of shoes.", eng: "sheet ... pair" },
+                    { q: "Add a ........ salt and a ........ apples to the dish.", eng: "little ... few" },
+                    { q: "She ordered a ........ of soup and a ........ of juice.", eng: "bowl ... glass" },
+                    { q: "Do you have ........ questions or ........ suggestions?", eng: "any ... any / some" },
+                    { q: "He drank a ........ of milk and ate a ........ of cake.", eng: "glass / bottle ... slice" },
+                    { q: "There are ........ birds in the tree and ........ water in the lake.", eng: "many ... much / a lot of" },
+                    { q: "I have a ........ apples and a ........ sugar left.", eng: "few ... little" },
+                    { q: "Buy a ........ of shoes and a ........ of socks.", eng: "pair ... pair" },
+                    { q: "Give me ........ water and ........ biscuits.", eng: "some ... some" },
+                    { q: "A ........ of tea in the morning and a ........ of water at night.", eng: "cup ... glass" },
+                    { q: "How ........ pencils do you have and how ........ water do you drink?", eng: "many ... much" },
+                    { q: "I eat a ........ of soup with a ........ of bread.", eng: "bowl ... slice" }
+                ]
+            },
+            'feelings': {
+                easy: [
+                    { q: "Senang / Bahagia", eng: "Happy" },
+                    { q: "Sedih", eng: "Sad" },
+                    { q: "Marah", eng: "Angry" },
+                    { q: "Takut", eng: "Scared / Afraid" },
+                    { q: "Lelah / Capai", eng: "Tired" },
+                    { q: "Mengantuk", eng: "Sleepy" },
+                    { q: "Lapar", eng: "Hungry" },
+                    { q: "Haus", eng: "Thirsty" },
+                    { q: "Terkejut", eng: "Surprised" },
+                    { q: "Bosan", eng: "Bored" },
+                    { q: "Bingung", eng: "Confused" },
+                    { q: "Malu", eng: "Shy" },
+                    { q: "Gugup", eng: "Nervous" },
+                    { q: "Bangga", eng: "Proud" },
+                    { q: "Bersemangat", eng: "Excited" }
+                ],
+                medium: [
+                    { q: "I got 100 on my English test, I am very ........ !", eng: "happy" },
+                    { q: "He didn't eat lunch today, so he is ........ .", eng: "hungry" },
+                    { q: "After running for 1 hour, I feel very ........ .", eng: "tired / thirsty" },
+                    { q: "She lost her favorite doll, she feels ........ .", eng: "sad" },
+                    { q: "Drink water when you feel ........ .", eng: "thirsty" },
+                    { q: "It is 10 PM and I feel very ........ .", eng: "sleepy" },
+                    { q: "The teacher is ........ because the room is noisy.", eng: "angry" },
+                    { q: "I am ........ of dark rooms.", eng: "scared / afraid" },
+                    { q: "We are going to the beach tomorrow, I am so ........ !", eng: "excited" },
+                    { q: "My parents are ........ of my high marks.", eng: "proud" },
+                    { q: "There is nothing to do, I feel ........ .", eng: "bored" },
+                    { q: "I don't understand the question, I am ........ .", eng: "confused" },
+                    { q: "She is too ........ to speak in front of many people.", eng: "shy / nervous" },
+                    { q: "Before the exam starts, I feel a bit ........ .", eng: "nervous" },
+                    { q: "She got a birthday gift, she was ........ !", eng: "surprised" }
+                ],
+                hard: [
+                    { q: "I am ........ because I won the match, but my friend is ........ because he lost.", eng: "happy ... sad" },
+                    { q: "After running, I am very ........ and I feel ........ .", eng: "tired ... thirsty" },
+                    { q: "He is ........ because he hasn't eaten, and ........ because he hasn't slept.", eng: "hungry ... sleepy" },
+                    { q: "She was ........ when she saw the ghost, but now she is ........ .", eng: "scared ... calm" },
+                    { q: "My parents are ........ of me because I am ........ in class.", eng: "proud ... smart / polite" },
+                    { q: "Before performing I am ........ , but on stage I feel ........ .", eng: "nervous ... excited" },
+                    { q: "The teacher was ........ when we broke the glass, but now she is ........ .", eng: "angry ... fine / calm" },
+                    { q: "I feel ........ when doing nothing, but ........ when playing games.", eng: "bored ... happy / excited" },
+                    { q: "Drink water when you are ........ and eat food when you are ........ .", eng: "thirsty ... hungry" },
+                    { q: "She feels ........ in front of strangers because she is ........ .", eng: "shy ... quiet" },
+                    { q: "I was ........ by the gift and felt very ........ .", eng: "surprised ... happy" },
+                    { q: "He is ........ about the hard question and feels ........ .", eng: "confused ... nervous" },
+                    { q: "When it is late I get ........ and when I work hard I get ........ .", eng: "sleepy ... tired" },
+                    { q: "We are ........ about the trip and feel ........ to go.", eng: "excited ... happy" },
+                    { q: "Don't be ........ of the dark, stay ........ and brave.", eng: "scared ... calm" }
+                ]
+            },
+            'currencies': {
+                easy: [
+                    { q: "Rp 500", eng: "Five hundred rupiahs" },
+                    { q: "Rp 1.000", eng: "One thousand rupiahs" },
+                    { q: "Rp 1.500", eng: "One thousand five hundred rupiahs" },
+                    { q: "Rp 2.000", eng: "Two thousand rupiahs" },
+                    { q: "Rp 3.500", eng: "Three thousand five hundred rupiahs" },
+                    { q: "Rp 5.000", eng: "Five thousand rupiahs" },
+                    { q: "Rp 7.500", eng: "Seven thousand five hundred rupiahs" },
+                    { q: "Rp 10.000", eng: "Ten thousand rupiahs" },
+                    { q: "Rp 12.500", eng: "Twelve thousand five hundred rupiahs" },
+                    { q: "Rp 15.000", eng: "Fifteen thousand rupiahs" },
+                    { q: "Rp 20.000", eng: "Twenty thousand rupiahs" },
+                    { q: "Rp 25.000", eng: "Twenty-five thousand rupiahs" },
+                    { q: "Rp 50.000", eng: "Fifty thousand rupiahs" },
+                    { q: "Rp 75.000", eng: "Seventy-five thousand rupiahs" },
+                    { q: "Rp 100.000", eng: "One hundred thousand rupiahs" }
+                ],
+                medium: [
+                    { q: "The candy costs ........ (Rp 2.000).", eng: "Two thousand rupiahs" },
+                    { q: "I have ........ (Rp 10.000) in my pocket.", eng: "Ten thousand rupiahs" },
+                    { q: "The notebook costs ........ (Rp 5.000).", eng: "Five thousand rupiahs" },
+                    { q: "This pen is ........ (Rp 1.500).", eng: "One thousand five hundred rupiahs" },
+                    { q: "A bottle of juice is ........ (Rp 7.500).", eng: "Seven thousand five hundred rupiahs" },
+                    { q: "The toy car costs ........ (Rp 20.000).", eng: "Twenty thousand rupiahs" },
+                    { q: "A box of milk is ........ (Rp 3.500).", eng: "Three thousand five hundred rupiahs" },
+                    { q: "My shirt costs ........ (Rp 50.000).", eng: "Fifty thousand rupiahs" },
+                    { q: "The eraser costs ........ (Rp 500).", eng: "Five hundred rupiahs" },
+                    { q: "A pencil costs ........ (Rp 1.000).", eng: "One thousand rupiahs" },
+                    { q: "The book costs ........ (Rp 15.000).", eng: "Fifteen thousand rupiahs" },
+                    { q: "A pair of socks is ........ (Rp 12.500).", eng: "Twelve thousand five hundred rupiahs" },
+                    { q: "The school bag costs ........ (Rp 100.000).", eng: "One hundred thousand rupiahs" },
+                    { q: "The novel costs ........ (Rp 75.000).", eng: "Seventy-five thousand rupiahs" },
+                    { q: "The pencil case is ........ (Rp 25.000).", eng: "Twenty-five thousand rupiahs" }
+                ],
+                hard: [
+                    { q: "The toy is ........ (Rp 50.000) and the book is ........ (Rp 20.000).", eng: "Fifty thousand rupiahs ... Twenty thousand rupiahs" },
+                    { q: "I paid ........ (Rp 15.000) and got ........ (Rp 5.000) change.", eng: "Fifteen thousand rupiahs ... Five thousand rupiahs" },
+                    { q: "The pen is ........ (Rp 2.000) and the ruler is ........ (Rp 1.500).", eng: "Two thousand rupiahs ... One thousand five hundred rupiahs" },
+                    { q: "A bag is ........ (Rp 100.000) and shoes are ........ (Rp 75.000).", eng: "One hundred thousand rupiahs ... Seventy-five thousand rupiahs" },
+                    { q: "An eraser is ........ (Rp 500) and a pencil is ........ (Rp 1.000).", eng: "Five hundred rupiahs ... One thousand rupiahs" },
+                    { q: "I bought milk for ........ (Rp 5.000) and bread for ........ (Rp 3.500).", eng: "Five thousand rupiahs ... Three thousand five hundred rupiahs" },
+                    { q: "Socks cost ........ (Rp 12.500) and a hat costs ........ (Rp 25.000).", eng: "Twelve thousand five hundred rupiahs ... Twenty-five thousand rupiahs" },
+                    { q: "Juice is ........ (Rp 7.500) and snack is ........ (Rp 2.500).", eng: "Seven thousand five hundred rupiahs ... Two thousand five hundred rupiahs" },
+                    { q: "I spent ........ (Rp 20.000) for lunch and ........ (Rp 10.000) for bus.", eng: "Twenty thousand rupiahs ... Ten thousand rupiahs" },
+                    { q: "The doll is ........ (Rp 50.000) and the game is ........ (Rp 100.000).", eng: "Fifty thousand rupiahs ... One hundred thousand rupiahs" },
+                    { q: "Candy is ........ (Rp 500) and chocolate is ........ (Rp 5.000).", eng: "Five hundred rupiahs ... Five thousand rupiahs" },
+                    { q: "A notebook is ........ (Rp 15.000) and marker is ........ (Rp 3.500).", eng: "Fifteen thousand rupiahs ... Three thousand five hundred rupiahs" },
+                    { q: "I have ........ (Rp 25.000) cash and ........ (Rp 75.000) in bank.", eng: "Twenty-five thousand rupiahs ... Seventy-five thousand rupiahs" },
+                    { q: "Pencil case is ........ (Rp 20.000) and crayons are ........ (Rp 12.500).", eng: "Twenty thousand rupiahs ... Twelve thousand five hundred rupiahs" },
+                    { q: "Ice cream costs ........ (Rp 7.500) and water costs ........ (Rp 2.000).", eng: "Seven thousand five hundred rupiahs ... Two thousand rupiahs" }
+                ]
+            },
+            'dates': {
+                easy: [
+                    { q: "Hari Senin", eng: "Monday" },
+                    { q: "Hari Jumat", eng: "Friday" },
+                    { q: "Hari Minggu", eng: "Sunday" },
+                    { q: "Bulan Januari", eng: "January" },
+                    { q: "Bulan Agustus", eng: "August" },
+                    { q: "Bulan Desember", eng: "December" },
+                    { q: "Tanggal pertama (1st)", eng: "First" },
+                    { q: "Tanggal kedua (2nd)", eng: "Second" },
+                    { q: "Tanggal ketiga (3rd)", eng: "Third" },
+                    { q: "Tanggal keempat (4th)", eng: "Fourth" },
+                    { q: "Kemarin", eng: "Yesterday" },
+                    { q: "Hari ini", eng: "Today" },
+                    { q: "Besok", eng: "Tomorrow" },
+                    { q: "Hari Ulang Tahun", eng: "Birthday" },
+                    { q: "Akhir Pekan", eng: "Weekend" }
+                ],
+                medium: [
+                    { q: "The day after Sunday is ........ .", eng: "Monday" },
+                    { q: "The day before Saturday is ........ .", eng: "Friday" },
+                    { q: "August is the 8th ........ of the year.", eng: "month" },
+                    { q: "The 1st of August is written as August ........ .", eng: "first" },
+                    { q: "The day after today is ........ .", eng: "tomorrow" },
+                    { q: "The day before today was ........ .", eng: "yesterday" },
+                    { q: "Saturday and Sunday are called the ........ .", eng: "weekend" },
+                    { q: "The last month of the year is ........ .", eng: "December" },
+                    { q: "The first month of the year is ........ .", eng: "January" },
+                    { q: "Today is my ........ ! Happy birthday to me!", eng: "birthday" },
+                    { q: "The 2nd day of the month is the ........ .", eng: "second" },
+                    { q: "The 3rd day of the month is the ........ .", eng: "third" },
+                    { q: "The 4th day of the month is the ........ .", eng: "fourth" },
+                    { q: "We don't go to school on the ........ .", eng: "weekend / Sunday" },
+                    { q: "Indonesian Independence Day is in ........ .", eng: "August" }
+                ],
+                hard: [
+                    { q: "Yesterday was ........ and tomorrow will be ........ .", eng: "Friday ... Sunday" },
+                    { q: "My birthday is on August ........ (1st) and his is on August ........ (2nd).", eng: "first ... second" },
+                    { q: "The first month is ........ and the last month is ........ .", eng: "January ... December" },
+                    { q: "Saturday and Sunday are the ........ , while Monday to Friday are ........ .", eng: "weekend ... weekdays" },
+                    { q: "If today is ........ , yesterday was Sunday and tomorrow will be Tuesday.", eng: "Monday" },
+                    { q: "Independence Day is on August ........ (17th) in the month of ........ .", eng: "seventeenth ... August" },
+                    { q: "The 3rd day is ........ and the 4th day is ........ .", eng: "third ... fourth" },
+                    { q: "We go to school from ........ to ........ .", eng: "Monday ... Friday" },
+                    { q: "If yesterday was ........ , today is Thursday and tomorrow is ........ .", eng: "Wednesday ... Friday" },
+                    { q: "New Year's Day is on ........ ........ (1st).", eng: "January ... first" },
+                    { q: "My sister's birthday is on the ........ of ........ .", eng: "second ... December" },
+                    { q: "We rest on ........ and study on ........ .", eng: "Sunday / weekend ... Monday" },
+                    { q: "The month before August is ........ and after is ........ .", eng: "July ... September" },
+                    { q: "Today is ........ , so tomorrow is ........ .", eng: "Friday ... Saturday" },
+                    { q: "I celebrated my ........ last week on ........ .", eng: "birthday ... Sunday" }
+                ]
+            },
+            'animals': {
+                easy: [
+                    { q: "Kucing", eng: "Cat" },
+                    { q: "Anjing", eng: "Dog" },
+                    { q: "Burung", eng: "Bird" },
+                    { q: "Ikan", eng: "Fish" },
+                    { q: "Kupu-kupu", eng: "Butterfly" },
+                    { q: "Gajah", eng: "Elephant" },
+                    { q: "Jerapah", eng: "Giraffe" },
+                    { q: "Singa", eng: "Lion" },
+                    { q: "Harimau", eng: "Tiger" },
+                    { q: "Monyet", eng: "Monkey" },
+                    { q: "Kelinci", eng: "Rabbit" },
+                    { q: "Kuda", eng: "Horse" },
+                    { q: "Sapi", eng: "Cow" },
+                    { q: "Bebek", eng: "Duck" },
+                    { q: "Ayam", eng: "Chicken" }
+                ],
+                medium: [
+                    { q: "The ........ has a very long neck.", eng: "giraffe" },
+                    { q: "The ........ is known as the king of the jungle.", eng: "lion" },
+                    { q: "The ........ has a long trunk and big ears.", eng: "elephant" },
+                    { q: "A ........ likes to eat carrots and hop.", eng: "rabbit" },
+                    { q: "A ........ can swim in the water.", eng: "fish" },
+                    { q: "A ........ flies high in the sky.", eng: "bird" },
+                    { q: "A ........ barks and guards the house.", eng: "dog" },
+                    { q: "A ........ meows and likes to eat fish.", eng: "cat" },
+                    { q: "A ........ gives us fresh milk.", eng: "cow" },
+                    { q: "A ........ loves to eat bananas and swing on trees.", eng: "monkey" },
+                    { q: "A beautiful ........ has colorful wings.", eng: "butterfly" },
+                    { q: "A ........ quacks and swims in the pond.", eng: "duck" },
+                    { q: "A ........ lays eggs every morning.", eng: "chicken" },
+                    { q: "A ........ gallops fast on the grass field.", eng: "horse" },
+                    { q: "A ........ has orange and black stripes.", eng: "tiger" }
+                ],
+                hard: [
+                    { q: "The ........ lives in water and the ........ flies in the sky.", eng: "fish ... bird" },
+                    { q: "A ........ likes carrots and a ........ likes bananas.", eng: "rabbit ... monkey" },
+                    { q: "The ........ has a long neck and the ........ has a long trunk.", eng: "giraffe ... elephant" },
+                    { q: "The ........ barks at strangers and the ........ meows for food.", eng: "dog ... cat" },
+                    { q: "A ........ gives us milk and a ........ lays fresh eggs.", eng: "cow ... chicken" },
+                    { q: "The ........ is the king of jungle and the ........ has black stripes.", eng: "lion ... tiger" },
+                    { q: "A ........ quacks in the pond and a ........ flies with wings.", eng: "duck ... butterfly" },
+                    { q: "A ........ gallops fast and a ........ hops on grass.", eng: "horse ... rabbit" },
+                    { q: "The ........ swings on trees and the ........ swims in rivers.", eng: "monkey ... fish" },
+                    { q: "An ........ is very huge and a ........ is very small.", eng: "elephant ... butterfly / bird" },
+                    { q: "A ........ guards the yard and a ........ catches mice.", eng: "dog ... cat" },
+                    { q: "We get eggs from ........ and milk from ........ .", eng: "chicken ... cow" },
+                    { q: "The ........ roars loudly and the ........ hops high.", eng: "lion / tiger ... rabbit" },
+                    { q: "A ........ has colorful wings and a ........ has feathers.", eng: "butterfly ... bird" },
+                    { q: "A ........ pulls a carriage and a ........ swims in the pond.", eng: "horse ... duck" }
+                ]
+            },
+            'foods': {
+                easy: [
+                    { q: "Nasi Goreng", eng: "Fried rice" },
+                    { q: "Roti", eng: "Bread" },
+                    { q: "Mie", eng: "Noodles" },
+                    { q: "Sup / Sop", eng: "Soup" },
+                    { q: "Ayam Goreng", eng: "Fried chicken" },
+                    { q: "Telur", eng: "Egg" },
+                    { q: "Keju", eng: "Cheese" },
+                    { q: "Daging", eng: "Meat" },
+                    { q: "Susu", eng: "Milk" },
+                    { q: "Air Putih", eng: "Water" },
+                    { q: "Jus", eng: "Juice" },
+                    { q: "Es Krim", eng: "Ice cream" },
+                    { q: "Kue", eng: "Cake" },
+                    { q: "Buah-buahan", eng: "Fruits" },
+                    { q: "Sayuran", eng: "Vegetables" }
+                ],
+                medium: [
+                    { q: "We eat ........ for breakfast with butter and jam.", eng: "bread" },
+                    { q: "It is hot outside, let's eat cold ........ !", eng: "ice cream" },
+                    { q: "Indonesians love to eat delicious ........ for dinner.", eng: "fried rice" },
+                    { q: "Drink a glass of warm ........ before going to sleep.", eng: "milk" },
+                    { q: "Rabbits and humans should eat fresh ........ .", eng: "vegetables" },
+                    { q: "I order crispy ........ at the restaurant.", eng: "fried chicken" },
+                    { q: "Apples and bananas are healthy ........ .", eng: "fruits" },
+                    { q: "When I am thirsty, I drink fresh ........ .", eng: "water / juice" },
+                    { q: "A hen lays an ........ that we can fry.", eng: "egg" },
+                    { q: "Mice love to eat delicious yellow ........ .", eng: "cheese" },
+                    { q: "Hot chicken ........ is good when you have a cold.", eng: "soup" },
+                    { q: "We eat sweet chocolate ........ on birthdays.", eng: "cake" },
+                    { q: "Siti drinks orange ........ with ice.", eng: "juice" },
+                    { q: "Long yellow ........ are delicious when boiled.", eng: "noodles" },
+                    { q: "Beef steak is made from cow ........ .", eng: "meat" }
+                ],
+                hard: [
+                    { q: "I eat ........ and drink a glass of ........ in the morning.", eng: "fried rice / bread ... milk" },
+                    { q: "She orders hot ........ and a cup of ........ .", eng: "soup ... tea" },
+                    { q: "He eats a slice of ........ with yellow ........ .", eng: "bread ... cheese" },
+                    { q: "We eat healthy ........ and fresh ........ every day.", eng: "vegetables ... fruits" },
+                    { q: "They love crispy ........ and fried ........ .", eng: "fried chicken ... egg" },
+                    { q: "Eat sweet birthday ........ and drink fresh ........ .", eng: "cake ... juice" },
+                    { q: "I drink cold ........ and eat chocolate ........ .", eng: "water / milk ... ice cream" },
+                    { q: "Boiled ........ with warm ........ is delicious on rainy days.", eng: "noodles ... soup" },
+                    { q: "Monkeys eat ........ and rabbits eat ........ .", eng: "fruits / bananas ... vegetables / carrots" },
+                    { q: "Father eats grilled ........ and drinks mineral ........ .", eng: "meat ... water" },
+                    { q: "Fry an ........ for breakfast and drink fresh ........ .", eng: "egg ... milk" },
+                    { q: "I order ........ rice and orange ........ .", eng: "fried ... juice" },
+                    { q: "Cold ........ is sweet and chocolate ........ is delicious.", eng: "ice cream ... cake" },
+                    { q: "Slice the ........ and spread butter on the ........ .", eng: "cheese ... bread" },
+                    { q: "Eat green ........ and drink fresh ........ .", eng: "vegetables ... water" }
+                ]
+            },
+            'tastes': {
+                easy: [
+                    { q: "Manis", eng: "Sweet" },
+                    { q: "Asin", eng: "Salty" },
+                    { q: "Asam", eng: "Sour" },
+                    { q: "Pahit", eng: "Bitter" },
+                    { q: "Pedas", eng: "Spicy" },
+                    { q: "Gurih / Lezat", eng: "Savory / Delicious" },
+                    { q: "Tawar / Hambar", eng: "Plain / Bland" },
+                    { q: "Renyah", eng: "Crispy" },
+                    { q: "Segar", eng: "Fresh" },
+                    { q: "Panas", eng: "Hot" },
+                    { q: "Dingin", eng: "Cold" },
+                    { q: "Berminyak", eng: "Oily" },
+                    { q: "Creamy", eng: "Creamy" },
+                    { q: "Enak", eng: "Tasty / Yummy" },
+                    { q: "Berbumbu", eng: "Spiced" }
+                ],
+                medium: [
+                    { q: "Sugar and candies taste very ........ .", eng: "sweet" },
+                    { q: "Chili pepper tastes very ........ !", eng: "spicy" },
+                    { q: "Lemon juice tastes very ........ .", eng: "sour" },
+                    { q: "Black coffee without sugar tastes ........ .", eng: "bitter" },
+                    { q: "Potato chips taste crisp and ........ .", eng: "salty / savory" },
+                    { q: "Fried chicken skin is very ........ .", eng: "crispy" },
+                    { q: "Pure water without flavor is ........ .", eng: "plain / bland" },
+                    { q: "Ice cream feels cold and ........ .", eng: "creamy / sweet" },
+                    { q: "Fresh fruit juice tastes very ........ .", eng: "fresh / sweet" },
+                    { q: "Hot soup is best eaten when it is ........ .", eng: "hot" },
+                    { q: "Fried foods can be a bit ........ .", eng: "oily" },
+                    { q: "Mother's cooking is very ........ !", eng: "delicious / tasty" },
+                    { q: "Sea water tastes very ........ .", eng: "salty" },
+                    { q: "Ice water feels very ........ .", eng: "cold" },
+                    { q: "Curry food is full of spices and ........ .", eng: "savory / spiced" }
+                ],
+                hard: [
+                    { q: "Sugar tastes ........ while lemon tastes ........ .", eng: "sweet ... sour" },
+                    { q: "Candy is ........ but black coffee is ........ .", eng: "sweet ... bitter" },
+                    { q: "French fries are ........ and crispy, but lemonade is ........ .", eng: "salty ... sour" },
+                    { q: "Chili is very ........ while plain water is ........ .", eng: "spicy ... plain / bland" },
+                    { q: "Ice cream is ........ and cold, while soup is ........ .", eng: "sweet ... hot" },
+                    { q: "Potato chips are ........ and fried chicken is ........ .", eng: "salty ... crispy / tasty" },
+                    { q: "Honey tastes ........ and medicine tastes ........ .", eng: "sweet ... bitter" },
+                    { q: "Unripe mango is ........ and ripe mango is ........ .", eng: "sour ... sweet" },
+                    { q: "Soup is warm and ........ while ice is cold and ........ .", eng: "savory ... fresh" },
+                    { q: "Fried banana is ........ and crispy on the outside.", eng: "sweet" },
+                    { q: "The juice is ........ and cold, perfect for a hot day.", eng: "fresh ... sweet" },
+                    { q: "Curry is very ........ and full of flavor.", eng: "spiced ... savory" },
+                    { q: "Don't eat too much ........ food because it is oily.", eng: "fried ... oily" },
+                    { q: "Milk is ........ and sweet, while lemon is ........ .", eng: "creamy ... sour" },
+                    { q: "Salt makes food ........ and sugar makes food ........ .", eng: "salty ... sweet" }
+                ]
+            }
+        };
+
+        // --- APP STATE ---
+        let currentTopicId = '';
+        let currentTopic = null;
+        let currentQuestionCount = 0;
+        let currentLevel = 'easy'; // Default level: 'easy', 'medium', 'hard'
+
+        // --- DOM ELEMENTS ---
+        const menuView = document.getElementById('menu-view');
+        const quizView = document.getElementById('quiz-view');
+        const topicGrid = document.getElementById('topic-grid');
+        
+        const scoreDisplay = document.getElementById('score-display');
+        
+        const btnCloseQuiz = document.getElementById('btn-close-quiz');
+        const currentTopicTitle = document.getElementById('current-topic-title');
+        const questionNumberEl = document.getElementById('question-number');
+        const questionWord = document.getElementById('question-word');
+        const btnJawab = document.getElementById('btn-jawab');
+        const answerRevealArea = document.getElementById('answer-reveal-area');
+        const revealedAnswerText = document.getElementById('revealed-answer-text');
+        const btnNext = document.getElementById('btn-next');
+
+        // Level Elements
+        const btnLevelEasy = document.getElementById('btn-level-easy');
+        const btnLevelMedium = document.getElementById('btn-level-medium');
+        const btnLevelHard = document.getElementById('btn-level-hard');
+        const quizLevelBadge = document.getElementById('quiz-level-badge');
+        const questionPromptLabel = document.getElementById('question-prompt-label');
+
+        // --- INITIALIZATION ---
+        function initApp() {
+            // Render Topic Buttons
+            topics.forEach(topic => {
+                const btn = document.createElement('button');
+                btn.className = `${topic.color} text-white p-4 sm:p-5 lg:p-6 rounded-2xl shadow-md btn-topic flex flex-col items-center justify-center gap-2 sm:gap-3 border-4 border-white cursor-pointer hover:scale-105 transition-transform`;
+                btn.innerHTML = `
+                    <span class="text-3xl sm:text-4xl lg:text-5xl drop-shadow-md">${topic.icon}</span>
+                    <span class="font-extrabold text-sm sm:text-base lg:text-lg drop-shadow-md leading-tight text-center">${topic.title}</span>
+                `;
+                btn.onclick = () => startQuiz(topic.id);
+                topicGrid.appendChild(btn);
+            });
+
+            // Level Buttons Handlers
+            btnLevelEasy.onclick = () => setDifficultyLevel('easy');
+            btnLevelMedium.onclick = () => setDifficultyLevel('medium');
+            btnLevelHard.onclick = () => setDifficultyLevel('hard');
+
+            // Event Listeners
+            btnCloseQuiz.onclick = returnToMenu;
+            btnJawab.onclick = revealAnswer;
+            btnNext.onclick = showNextQuestion;
+
+            // Fullscreen Listener
+            document.getElementById('btn-fullscreen').onclick = toggleFullscreen;
+            document.addEventListener('fullscreenchange', () => {
+                if (!document.fullscreenElement) isPseudoFullscreen = false;
+                updateFullscreenState();
+            });
+            document.addEventListener('webkitfullscreenchange', () => {
+                if (!document.webkitFullscreenElement) isPseudoFullscreen = false;
+                updateFullscreenState();
+            });
+        }
+
+        function setDifficultyLevel(level) {
+            currentLevel = level;
+
+            // Reset buttons style
+            const levelBtns = [
+                { id: 'easy', btn: btnLevelEasy, color: 'bg-green-500 border-green-600', icon: '🟢', text: 'Easy' },
+                { id: 'medium', btn: btnLevelMedium, color: 'bg-yellow-500 border-yellow-600', icon: '🟡', text: 'Medium' },
+                { id: 'hard', btn: btnLevelHard, color: 'bg-red-500 border-red-600', icon: '🔴', text: 'Hard' }
+            ];
+
+            levelBtns.forEach(item => {
+                if (item.id === level) {
+                    item.btn.className = `btn-level ${item.color} text-white font-bold px-3 sm:px-4 py-1.5 rounded-xl text-xs sm:text-sm shadow-md border-2 transform scale-105 transition-all cursor-pointer flex items-center gap-1`;
+                } else {
+                    item.btn.className = `btn-level bg-white text-gray-700 hover:bg-gray-100 font-bold px-3 sm:px-4 py-1.5 rounded-xl text-xs sm:text-sm border border-gray-300 transition-all cursor-pointer flex items-center gap-1`;
+                }
+            });
+
+            // Update Quiz View Badge
+            if (level === 'easy') {
+                quizLevelBadge.className = 'bg-emerald-500 text-white font-extrabold px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border-2 border-emerald-600 shadow-sm text-xs sm:text-sm uppercase flex items-center gap-1';
+                quizLevelBadge.innerHTML = '<span>🟢</span> Easy';
+            } else if (level === 'medium') {
+                quizLevelBadge.className = 'bg-yellow-500 text-white font-extrabold px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border-2 border-yellow-600 shadow-sm text-xs sm:text-sm uppercase flex items-center gap-1';
+                quizLevelBadge.innerHTML = '<span>🟡</span> Medium';
+            } else if (level === 'hard') {
+                quizLevelBadge.className = 'bg-red-500 text-white font-extrabold px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border-2 border-red-600 shadow-sm text-xs sm:text-sm uppercase flex items-center gap-1';
+                quizLevelBadge.innerHTML = '<span>🔴</span> Hard';
+            }
+        }
+
+        // --- FULLSCREEN CONTROLLER ---
+        let isPseudoFullscreen = false;
+
+        function toggleFullscreen() {
+            if (isPseudoFullscreen) {
+                exitPseudoFullscreen();
+                return;
+            }
+
+            if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) {
+                const docEl = document.documentElement;
+                let promise = null;
+
+                try {
+                    if (docEl.requestFullscreen) {
+                        promise = docEl.requestFullscreen();
+                    } else if (docEl.webkitRequestFullscreen) {
+                        promise = docEl.webkitRequestFullscreen();
+                    } else if (docEl.msRequestFullscreen) {
+                        promise = docEl.msRequestFullscreen();
+                    }
+
+                    if (promise && typeof promise.catch === 'function') {
+                        promise.catch(err => {
+                            console.warn("Native fullscreen denied by permissions policy. Falling back to pseudo-fullscreen mode.", err);
+                            enterPseudoFullscreen();
+                        });
+                    }
+                } catch (e) {
+                    enterPseudoFullscreen();
+                }
+            } else {
+                try {
+                    if (document.exitFullscreen) document.exitFullscreen();
+                    else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+                    else if (document.msExitFullscreen) document.msExitFullscreen();
+                } catch (e) {
+                    console.warn(e);
+                }
+            }
+        }
+
+        function enterPseudoFullscreen() {
+            isPseudoFullscreen = true;
+            const appContainer = document.getElementById('app');
+            if (appContainer) {
+                appContainer.classList.add('is-pseudo-fullscreen');
+            }
+            updateFullscreenState();
+        }
+
+        function exitPseudoFullscreen() {
+            isPseudoFullscreen = false;
+            const appContainer = document.getElementById('app');
+            if (appContainer) {
+                appContainer.classList.remove('is-pseudo-fullscreen');
+            }
+            updateFullscreenState();
+        }
+
+        function updateFullscreenState() {
+            const isNativeFs = !!(document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement);
+            const isFs = isNativeFs || isPseudoFullscreen;
+            
+            const fsIcon = document.getElementById('fullscreen-icon');
+            const fsText = document.getElementById('fullscreen-text');
+            
+            if (fsIcon && fsText) {
+                if (isFs) {
+                    fsIcon.textContent = '✕';
+                    fsText.textContent = 'Exit Screen';
+                } else {
+                    fsIcon.textContent = '⛶';
+                    fsText.textContent = 'Full Screen';
+                }
+            }
+        }
+
+        // --- QUIZ LOGIC ---
+        function startQuiz(topicId) {
+            currentTopicId = topicId;
+            currentTopic = topics.find(t => t.id === topicId);
+            currentQuestionCount = 1;
+
+            // Update UI
+            currentTopicTitle.textContent = currentTopic.title;
+            currentTopicTitle.className = `text-xl sm:text-2xl font-extrabold text-center mb-4 capitalize px-4 py-2 rounded-full inline-block mx-auto text-white ${currentTopic.color}`;
+            
+            scoreDisplay.classList.add('hidden');
+
+            switchView(quizView);
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            const topicData = questionBank[currentTopicId];
+            let pool = topicData ? (topicData[currentLevel] || topicData['easy']) : [];
+            
+            if (!pool || pool.length === 0) {
+                pool = [{ q: "Sample Question", eng: "Sample Answer" }];
+            }
+
+            // Set Prompt Label based on difficulty level
+            if (currentLevel === 'easy') {
+                questionPromptLabel.textContent = 'Apa bahasa Inggris dari:';
+            } else if (currentLevel === 'medium') {
+                questionPromptLabel.textContent = 'Lengkapi kalimat berikut (1 Isian):';
+            } else if (currentLevel === 'hard') {
+                questionPromptLabel.textContent = 'Lengkapi kalimat berikut (2 Isian):';
+            }
+            
+            // Pick a random question from the level pool
+            const randomIndex = Math.floor(Math.random() * pool.length);
+            const qData = pool[randomIndex];
+            
+            // Set values
+            questionNumberEl.textContent = currentQuestionCount;
+            questionWord.textContent = qData.q;
+            revealedAnswerText.textContent = qData.eng;
+
+            // Reset UI for answering
+            btnJawab.classList.remove('hidden');
+            answerRevealArea.classList.add('hidden');
+            btnNext.classList.add('hidden');
+        }
+
+        function revealAnswer() {
+            // Show the answer
+            btnJawab.classList.add('hidden');
+            answerRevealArea.classList.remove('hidden');
+            btnNext.classList.remove('hidden');
+            
+            // Play sound
+            playSound('correct');
+        }
+
+        function showNextQuestion() {
+            currentQuestionCount++;
+            loadQuestion();
+        }
+
+        function returnToMenu() {
+            switchView(menuView);
+        }
+
+        // --- HELPERS ---
+        function switchView(viewToShow) {
+            menuView.classList.add('hidden');
+            quizView.classList.add('hidden');
+            viewToShow.classList.remove('hidden');
+            viewToShow.classList.add('fade-in');
+        }
+
+        // Audio helper
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        function playSound(type) {
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            const oscillator = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+            
+            if (type === 'correct') {
+                oscillator.type = 'sine';
+                oscillator.frequency.setValueAtTime(500, audioCtx.currentTime);
+                oscillator.frequency.exponentialRampToValueAtTime(1000, audioCtx.currentTime + 0.1);
+                gainNode.gain.setValueAtTime(0.3, audioCtx.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+                oscillator.start();
+                oscillator.stop(audioCtx.currentTime + 0.3);
+            }
+        }
+
+        // Start App
+        window.onload = initApp;
+
+    </script>
+</body>
+</html>
