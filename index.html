@@ -132,7 +132,7 @@
                             <span id="badge-icon">🟢</span> <span id="badge-text">Easy</span>
                         </div>
                         <div class="bg-indigo-100 text-indigo-800 font-bold px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border-2 border-indigo-200 shadow-sm text-sm sm:text-base">
-                            Question <span id="question-number">1</span>/<span id="total-questions">5</span>
+                            Question <span id="question-number">1</span>/<span id="total-questions">15</span>
                         </div>
                     </div>
                 </div>
@@ -186,7 +186,7 @@
                     <h2 class="text-3xl sm:text-4xl font-black text-indigo-700 mb-2">Well Done!</h2>
                     <p class="text-gray-500 font-bold text-lg mb-6">You've learned new words today.</p>
                     <div class="text-3xl sm:text-4xl font-black text-green-500 mb-8 drop-shadow-md">
-                        <span id="final-total">5</span> Words Completed!
+                        <span id="final-total">15</span> Words Completed!
                     </div>
                     <button onclick="returnToMenu()" class="w-full bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-4 px-8 rounded-2xl shadow-lg transform transition-all hover:scale-105 active:scale-95 border-b-4 border-indigo-700 text-xl">
                         Learn More!
@@ -228,23 +228,53 @@
                 easy: [
                     { q: "Jam 7 tepat", eng: "Seven o'clock" },
                     { q: "Jam 12 tepat", eng: "Twelve o'clock" },
-                    { q: "Setengah empat", eng: "Half past three" },
                     { q: "Pagi hari", eng: "Morning" },
-                    { q: "Malam hari", eng: "Night" }
+                    { q: "Malam hari", eng: "Night" },
+                    { q: "Jam 1 tepat", eng: "One o'clock" },
+                    { q: "Sore hari", eng: "Afternoon" },
+                    { q: "Tengah hari", eng: "Noon" },
+                    { q: "Tengah malam", eng: "Midnight" },
+                    { q: "Jam", eng: "Clock" },
+                    { q: "Menit", eng: "Minute" },
+                    { q: "Detik", eng: "Second" },
+                    { q: "Hari", eng: "Day" },
+                    { q: "Minggu (waktu)", eng: "Week" },
+                    { q: "Bulan", eng: "Month" },
+                    { q: "Tahun", eng: "Year" }
                 ],
                 medium: [
                     { q: "We go to school at ........ in the morning (07.00).", eng: "seven o'clock" },
                     { q: "It is 12.00 PM, which means it is ........ .", eng: "noon / midday" },
                     { q: "Half past three is written as ........ .", eng: "03.30" },
                     { q: "We sleep in the bed at ........ .", eng: "night" },
-                    { q: "Breakfast is eaten in the ........ .", eng: "morning" }
+                    { q: "Breakfast is eaten in the ........ .", eng: "morning" },
+                    { q: "A quarter past four is written as ........", eng: "04:15" },
+                    { q: "Ten minutes to nine is written as ........", eng: "08:50" },
+                    { q: "There are sixty seconds in one ........", eng: "minute" },
+                    { q: "There are twenty-four hours in one ........", eng: "day" },
+                    { q: "We eat lunch at ........", eng: "noon" },
+                    { q: "I brush my teeth before going to bed at ........", eng: "night" },
+                    { q: "The short hand on the clock points to the ........", eng: "hour" },
+                    { q: "The long hand on the clock points to the ........", eng: "minute" },
+                    { q: "Half past six is ........", eng: "06:30" },
+                    { q: "A quarter to ten is ........", eng: "09:45" }
                 ],
                 hard: [
                     { q: "I wake up at ........ in the morning (06:00).", eng: "six o'clock" },
                     { q: "We have breakfast in the ........ (Pagi)", eng: "morning" },
                     { q: "The clock shows 07.15 which is a ........ past seven.", eng: "quarter" },
                     { q: "12.00 in the day is ........", eng: "noon / midday" },
-                    { q: "05.45 is a quarter to ........", eng: "six" }
+                    { q: "05.45 is a quarter to ........", eng: "six" },
+                    { q: "The train departs at twenty past three (........).", eng: "03:20" },
+                    { q: "The movie starts at half past seven in the evening (........).", eng: "07:30 PM" },
+                    { q: "It is exactly 12:00 at night, it is ........", eng: "midnight" },
+                    { q: "If the minute hand is on 6, it is ........ past the hour.", eng: "half" },
+                    { q: "If the minute hand is on 9, it is a quarter ........ the next hour.", eng: "to" },
+                    { q: "If the minute hand is on 3, it is a quarter ........ the hour.", eng: "past" },
+                    { q: "The sun rises in the ........", eng: "morning" },
+                    { q: "The sun sets in the ........", eng: "evening" },
+                    { q: "There are 365 days in one ........", eng: "year" },
+                    { q: "A leap year has ........ days.", eng: "366" }
                 ]
             },
             'weather': {
@@ -253,21 +283,51 @@
                     { q: "Cerah", eng: "Sunny" },
                     { q: "Berawan", eng: "Cloudy" },
                     { q: "Berangin", eng: "Windy" },
-                    { q: "Panas", eng: "Hot" }
+                    { q: "Panas", eng: "Hot" },
+                    { q: "Dingin", eng: "Cold" },
+                    { q: "Badai", eng: "Stormy" },
+                    { q: "Salju", eng: "Snowy" },
+                    { q: "Matahari", eng: "Sun" },
+                    { q: "Awan", eng: "Cloud" },
+                    { q: "Angin", eng: "Wind" },
+                    { q: "Petir", eng: "Lightning" },
+                    { q: "Guruh", eng: "Thunder" },
+                    { q: "Kabut", eng: "Fog / Foggy" },
+                    { q: "Kering", eng: "Dry" }
                 ],
                 medium: [
                     { q: "It is ........ outside, so take an umbrella.", eng: "rainy" },
                     { q: "The sun is shining bright, today is very ........ .", eng: "sunny" },
                     { q: "The sky is full of clouds, it is a ........ day.", eng: "cloudy" },
                     { q: "The wind is blowing hard, today is ........ .", eng: "windy" },
-                    { q: "In summer, the weather feels very ........ .", eng: "hot" }
+                    { q: "In summer, the weather feels very ........ .", eng: "hot" },
+                    { q: "We build a snowman when the weather is ........ .", eng: "snowy" },
+                    { q: "In winter, you need a thick jacket because it is ........ .", eng: "cold" },
+                    { q: "I can't see far away because it is very ........ this morning.", eng: "foggy" },
+                    { q: "A storm with strong winds and heavy rain is called a ........ .", eng: "typhoon / hurricane" },
+                    { q: "After the rain stops, you might see a ........ in the sky.", eng: "rainbow" },
+                    { q: "The bright flash of light in the sky during a storm is ........", eng: "lightning" },
+                    { q: "The loud sound after lightning is ........", eng: "thunder" },
+                    { q: "Water falling from the clouds is ........", eng: "rain" },
+                    { q: "White flakes falling in winter is ........", eng: "snow" },
+                    { q: "A long period without rain makes the ground very ........", eng: "dry" }
                 ],
                 hard: [
                     { q: "When it is ........ , we wear a raincoat.", eng: "rainy" },
                     { q: "The sun makes the day ........ ", eng: "hot / sunny" },
                     { q: "After the heavy rain, a beautiful ........ appeared in the sky.", eng: "rainbow" },
                     { q: "In the ........ season it rains every day.", eng: "rainy" },
-                    { q: "Listen to the loud ........ in the storm.", eng: "thunder" }
+                    { q: "Listen to the loud ........ in the storm.", eng: "thunder" },
+                    { q: "The temperature is below zero, so it is ........ cold.", eng: "freezing" },
+                    { q: "A very strong and spinning wind is called a ........", eng: "tornado" },
+                    { q: "Small balls of ice that fall from the sky are called ........", eng: "hail" },
+                    { q: "A gentle wind is called a ........", eng: "breeze" },
+                    { q: "When it's hot and there is a lot of moisture in the air, it is ........", eng: "humid" },
+                    { q: "The season when leaves fall from the trees is ........", eng: "autumn / fall" },
+                    { q: "The season when flowers start to bloom is ........", eng: "spring" },
+                    { q: "The hottest season of the year is ........", eng: "summer" },
+                    { q: "The coldest season of the year is ........", eng: "winter" },
+                    { q: "A prediction of the weather for the next few days is a weather ........", eng: "forecast" }
                 ]
             },
             'hobbies': {
@@ -276,21 +336,51 @@
                     { q: "Berenang", eng: "Swimming" },
                     { q: "Memancing", eng: "Fishing" },
                     { q: "Menari", eng: "Dancing" },
-                    { q: "Memasak", eng: "Cooking" }
+                    { q: "Memasak", eng: "Cooking" },
+                    { q: "Bernyanyi", eng: "Singing" },
+                    { q: "Menggambar", eng: "Drawing" },
+                    { q: "Berlari", eng: "Running" },
+                    { q: "Bersepeda", eng: "Cycling" },
+                    { q: "Bermain gitar", eng: "Playing guitar" },
+                    { q: "Berkemah", eng: "Camping" },
+                    { q: "Mendaki", eng: "Hiking" },
+                    { q: "Fotografi", eng: "Photography" },
+                    { q: "Berkebun", eng: "Gardening" },
+                    { q: "Menulis", eng: "Writing" }
                 ],
                 medium: [
                     { q: "Budi is ........ movies with his friend.", eng: "watching" },
                     { q: "Siti loves ........ books in the school library.", eng: "reading" },
                     { q: "Dini goes to the pool because her hobby is ........ .", eng: "swimming" },
                     { q: "My father likes ........ fish in the river.", eng: "fishing" },
-                    { q: "My mother is ........ delicious food in the kitchen.", eng: "cooking" }
+                    { q: "My mother is ........ delicious food in the kitchen.", eng: "cooking" },
+                    { q: "They go to the park every Sunday for ........ .", eng: "jogging" },
+                    { q: "He uses pencils and crayons for ........ .", eng: "drawing" },
+                    { q: "She loves planting flowers in her backyard, her hobby is ........", eng: "gardening" },
+                    { q: "We like ........ tents and making a campfire in the forest.", eng: "camping" },
+                    { q: "He takes pictures with his camera, his hobby is ........", eng: "photography" },
+                    { q: "Listening to ........ is a relaxing hobby.", eng: "music" },
+                    { q: "Playing ........ games on the computer is fun.", eng: "video" },
+                    { q: "Making clothes with yarn and needles is ........", eng: "knitting / sewing" },
+                    { q: "Moving your body to music is ........", eng: "dancing" },
+                    { q: "Using your voice to make musical sounds is ........", eng: "singing" }
                 ],
                 hard: [
                     { q: "Siti likes ........ books and writing stories.", eng: "reading" },
                     { q: "My brother enjoys playing ........ with his grandfather using black and white tiles.", eng: "chess" },
                     { q: "She likes ........ pictures using colorful paints.", eng: "painting" },
                     { q: "He is ........ a bicycle in the park.", eng: "riding / cycling" },
-                    { q: "Taking pictures with a camera is called ........", eng: "photography" }
+                    { q: "Taking pictures with a camera is called ........", eng: "photography" },
+                    { q: "Collecting old stamps is called stamp ........", eng: "collecting" },
+                    { q: "Making things from clay is called ........", eng: "pottery" },
+                    { q: "Walking up a mountain or hill is called ........", eng: "hiking" },
+                    { q: "Riding waves in the ocean on a board is ........", eng: "surfing" },
+                    { q: "Performing magic tricks as a hobby is doing ........", eng: "magic" },
+                    { q: "Writing down your thoughts every day is keeping a ........", eng: "journal / diary" },
+                    { q: "Building small models of airplanes or cars is model ........", eng: "building" },
+                    { q: "Folding paper into different shapes is ........", eng: "origami" },
+                    { q: "Baking bread and cakes in the oven is ........", eng: "baking" },
+                    { q: "Solving crossword ........ is good for the brain.", eng: "puzzles" }
                 ]
             },
             'daily-activities': {
@@ -299,21 +389,51 @@
                     { q: "Mandi", eng: "Take a bath" },
                     { q: "Sarapan", eng: "Breakfast" },
                     { q: "Pergi ke sekolah", eng: "Go to school" },
-                    { q: "Tidur", eng: "Sleep" }
+                    { q: "Tidur", eng: "Sleep" },
+                    { q: "Belajar", eng: "Study" },
+                    { q: "Bermain", eng: "Play" },
+                    { q: "Mencuci muka", eng: "Wash face" },
+                    { q: "Menyikat gigi", eng: "Brush teeth" },
+                    { q: "Berpakaian", eng: "Get dressed" },
+                    { q: "Makan siang", eng: "Lunch" },
+                    { q: "Makan malam", eng: "Dinner" },
+                    { q: "Menyapu", eng: "Sweep" },
+                    { q: "Menonton TV", eng: "Watch TV" },
+                    { q: "Membaca buku", eng: "Read a book" }
                 ],
                 medium: [
                     { q: "I ........ my teeth every morning.", eng: "brush" },
                     { q: "We eat ........ in the morning before school.", eng: "breakfast" },
                     { q: "After playing, I always take a ........ .", eng: "bath / shower" },
                     { q: "At night, we go to bed to ........ .", eng: "sleep" },
-                    { q: "I ........ my homework after school.", eng: "do" }
+                    { q: "I ........ my homework after school.", eng: "do" },
+                    { q: "I ........ my face with water and soap.", eng: "wash" },
+                    { q: "I put on my uniform, I ........ dressed.", eng: "get" },
+                    { q: "We eat ........ in the middle of the day.", eng: "lunch" },
+                    { q: "My family eats ........ together in the evening.", eng: "dinner" },
+                    { q: "I help my mom ........ the floor with a broom.", eng: "sweep" },
+                    { q: "I ........ TV for an hour after finishing my homework.", eng: "watch" },
+                    { q: "I pack my ........ before going to school.", eng: "bag" },
+                    { q: "I ........ a bus to go to school.", eng: "take / catch" },
+                    { q: "I play with my ........ during break time.", eng: "friends" },
+                    { q: "I ........ back home at 2 PM.", eng: "go / come" }
                 ],
                 hard: [
                     { q: "I wake up at 6, then I ........ my bed.", eng: "make" },
                     { q: "Before dinner, I always ........ my hands.", eng: "wash" },
                     { q: "We wear our ........ before going to school.", eng: "uniform" },
                     { q: "My mom cooks food in the ........ .", eng: "kitchen" },
-                    { q: "I watch ........ in the living room.", eng: "tv / television" }
+                    { q: "I watch ........ in the living room.", eng: "tv / television" },
+                    { q: "I brush my hair with a ........", eng: "comb / brush" },
+                    { q: "I wipe the table with a ........ cloth.", eng: "clean / damp" },
+                    { q: "I take out the ........ to the bin.", eng: "trash / rubbish" },
+                    { q: "I feed my pet ........ every morning.", eng: "dog / cat" },
+                    { q: "I water the ........ in the garden.", eng: "plants / flowers" },
+                    { q: "I iron my clothes to make them ........", eng: "neat / smooth" },
+                    { q: "I fold my blankets neatly after I ........ up.", eng: "wake" },
+                    { q: "I set the ........ before we eat dinner.", eng: "table" },
+                    { q: "I wash the ........ after eating dinner.", eng: "dishes" },
+                    { q: "I listen to ........ before going to sleep.", eng: "music / a story" }
                 ]
             },
             'directions': {
@@ -322,21 +442,899 @@
                     { q: "Belok kanan", eng: "Turn right" },
                     { q: "Jalan lurus", eng: "Go straight" },
                     { q: "Berhenti", eng: "Stop" },
-                    { q: "Di dekat", eng: "Near" }
-                ],
-                medium: [
-                    { q: "Menyeberang jalan", eng: "Cross the road / Cross the street" },
+                    { q: "Di dekat", eng: "Near" },
+                    { q: "Jauh", eng: "Far" },
                     { q: "Di depan", eng: "In front of" },
                     { q: "Di belakang", eng: "Behind" },
-                    { q: "Di sebelah", eng: "Next to / Beside" },
-                    { q: "Sangat jauh", eng: "Far" }
+                    { q: "Di sebelah", eng: "Next to" },
+                    { q: "Di antara", eng: "Between" },
+                    { q: "Jalan", eng: "Street / Road" },
+                    { q: "Sudut", eng: "Corner" },
+                    { q: "Naik", eng: "Up" },
+                    { q: "Turun", eng: "Down" },
+                    { q: "Menyeberang", eng: "Cross" }
+                ],
+                medium: [
+                    { q: "Menyeberang jalan", eng: "Cross the road / street" },
+                    { q: "Di sudut", eng: "At the corner" },
+                    { q: "Di belakang rumah", eng: "Behind the house" },
+                    { q: "Di sebelah sekolah", eng: "Next to the school" },
+                    { q: "Di antara dua pohon", eng: "Between two trees" },
+                    { q: "Go straight ahead for two ........", eng: "blocks" },
+                    { q: "The supermarket is ........ the left.", eng: "on" },
+                    { q: "The post office is ........ the right.", eng: "on" },
+                    { q: "Walk past the bank and then ........ right.", eng: "turn" },
+                    { q: "The park is across the ........ from the library.", eng: "street" },
+                    { q: "Go up the ........ to reach the second floor.", eng: "stairs" },
+                    { q: "Go down the ........ to the basement.", eng: "stairs" },
+                    { q: "The cinema is opposite the ........", eng: "hospital" },
+                    { q: "Walk along the ........ until you see the river.", eng: "path / street" },
+                    { q: "Don't cross the street when the light is ........", eng: "red" }
                 ],
                 hard: [
                     { q: "The bank is ........ the corner (Di sudut).", eng: "at" },
                     { q: "The hospital is ........ the school and the park (Di antara).", eng: "between" },
                     { q: "Go straight, then ........ at the traffic light (Belok kanan).", eng: "turn right" },
                     { q: "Please ........ the road at the zebra cross (Menyeberang).", eng: "cross" },
-                    { q: "My house is ........ the post office (Di sebelah).", eng: "next to" }
+                    { q: "My house is ........ the post office (Di sebelah).", eng: "next to" },
+                    { q: "Take the first turning on the ........", eng: "right / left" },
+                    { q: "Go past the roundabout and take the second ........", exit: "exit" },
+                    { q: "The map shows the ........ to the museum.", eng: "directions / route" },
+                    { q: "Excuse me, could you tell me the ........ to the station?", eng: "way" },
+                    { q: "It's a ten-minute ........ from here.", eng: "walk" },
+                    { q: "You can't miss it, it's a very big ........ building.", eng: "red / tall" },
+                    { q: "Drive ........ the tunnel.", eng: "through" },
+                    { q: "Walk ........ the bridge.", eng: "over" },
+                    { q: "The subway station is ........ the ground.", eng: "under" },
+                    { q: "Keep going straight until you reach the ........", eng: "intersection / crossroads" }
+                ]
+            },
+            'school-subjects': {
+                easy: [
+                    { q: "Matematika", eng: "Math / Mathematics" },
+                    { q: "Bahasa Inggris", eng: "English" },
+                    { q: "Sains / IPA", eng: "Science" },
+                    { q: "Seni", eng: "Art" },
+                    { q: "Olahraga", eng: "PE (Physical Education)" },
+                    { q: "Sejarah", eng: "History" },
+                    { q: "Geografi", eng: "Geography" },
+                    { q: "Musik", eng: "Music" },
+                    { q: "Komputer", eng: "Computer / IT" },
+                    { q: "Membaca", eng: "Reading" },
+                    { q: "Menulis", eng: "Writing" },
+                    { q: "Biologi", eng: "Biology" },
+                    { q: "Fisika", eng: "Physics" },
+                    { q: "Kimia", eng: "Chemistry" },
+                    { q: "Agama", eng: "Religion" }
+                ],
+                medium: [
+                    { q: "We study numbers and shapes in ........ class.", eng: "Math" },
+                    { q: "We paint and draw pictures in ........ class.", eng: "Art" },
+                    { q: "We learn about plants and animals in ........ class.", eng: "Science" },
+                    { q: "We run and play games in ........ class.", eng: "PE" },
+                    { q: "We learn about the past in ........ class.", eng: "History" },
+                    { q: "We learn how to use computers in ........ class.", eng: "IT / Computer" },
+                    { q: "We study maps and countries in ........ class.", eng: "Geography" },
+                    { q: "We sing songs and play instruments in ........ class.", eng: "Music" },
+                    { q: "We learn to read and write in English in ........ class.", eng: "English" },
+                    { q: "We learn about our country's language in ........ class.", eng: "Indonesian" },
+                    { q: "We learn about different beliefs in ........ class.", eng: "Religion" },
+                    { q: "We learn how to act in a play in ........ class.", eng: "Drama" },
+                    { q: "We learn how to cook and sew in ........ class.", eng: "Home Economics" },
+                    { q: "We learn about space and planets in ........ class.", eng: "Science / Astronomy" },
+                    { q: "We learn how to solve equations in ........ class.", eng: "Math / Algebra" }
+                ],
+                hard: [
+                    { q: "In ........ class, we learn how to use a computer.", eng: "IT / Computer Science" },
+                    { q: "Learning about different countries is called ........", eng: "Geography" },
+                    { q: "Singing and playing instruments belongs to ........ class.", eng: "Music" },
+                    { q: "In Indonesia, we learn our national language in ........ class.", eng: "Indonesian" },
+                    { q: "I bring a calculator to my ........ class.", eng: "Math" },
+                    { q: "The study of living organisms is called ........", eng: "Biology" },
+                    { q: "The study of matter, energy, and motion is called ........", eng: "Physics" },
+                    { q: "The study of substances and how they react is called ........", eng: "Chemistry" },
+                    { q: "Learning about the events of the past is called ........", eng: "History" },
+                    { q: "Learning a foreign language like Spanish or French is a ........ class.", eng: "Language" },
+                    { q: "Physical Education is often abbreviated as ........", eng: "PE" },
+                    { q: "Information Technology is often abbreviated as ........", eng: "IT" },
+                    { q: "The teacher writes on the ........ at the front of the classroom.", eng: "board / whiteboard" },
+                    { q: "Students take ........ to see how much they have learned.", eng: "tests / exams" },
+                    { q: "Students receive a report ........ at the end of the semester.", eng: "card" }
+                ]
+            },
+             'places': {
+                easy: [
+                    { q: "Sekolah", eng: "School" },
+                    { q: "Rumah sakit", eng: "Hospital" },
+                    { q: "Pasar", eng: "Market" },
+                    { q: "Taman", eng: "Park" },
+                    { q: "Bank", eng: "Bank" },
+                    { q: "Kantor Polisi", eng: "Police Station" },
+                    { q: "Perpustakaan", eng: "Library" },
+                    { q: "Kantor Pos", eng: "Post Office" },
+                    { q: "Bandara", eng: "Airport" },
+                    { q: "Stasiun", eng: "Station" },
+                    { q: "Toko", eng: "Shop / Store" },
+                    { q: "Restoran", eng: "Restaurant" },
+                    { q: "Museum", eng: "Museum" },
+                    { q: "Pantai", eng: "Beach" },
+                    { q: "Kebun binatang", eng: "Zoo" }
+                ],
+                medium: [
+                    { q: "We borrow books from the ........", eng: "Library" },
+                    { q: "You buy stamps and send letters at the ........", eng: "Post Office" },
+                    { q: "Doctors and nurses work at the ........", eng: "Hospital" },
+                    { q: "People go to the ........ to catch a flight.", eng: "Airport" },
+                    { q: "I go to the ........ to buy fresh fruit and vegetables.", eng: "Market" },
+                    { q: "Children learn to read and write at ........", eng: "School" },
+                    { q: "We keep our money safe in a ........", eng: "Bank" },
+                    { q: "If there is a crime, you go to the ........", eng: "Police Station" },
+                    { q: "You can see many animals from all over the world at the ........", eng: "Zoo" },
+                    { q: "You eat delicious food cooked by a chef at a ........", eng: "Restaurant" },
+                    { q: "You watch movies on a big screen at the ........", eng: "Cinema / Movie Theater" },
+                    { q: "You buy clothes, toys, and food in a big ........", eng: "Shopping Mall / Supermarket" },
+                    { q: "Firefighters wait for calls at the ........", eng: "Fire Station" },
+                    { q: "You wait for a train at the railway ........", eng: "Station" },
+                    { q: "You play on the swings and slides at the ........", eng: "Park / Playground" }
+                ],
+                hard: [
+                    { q: "A place where bread and cakes are baked and sold is a ........", eng: "Bakery" },
+                    { q: "If you want to watch a movie on a big screen, you go to the ........", eng: "Cinema / Movie Theater" },
+                    { q: "You can see many animals from all over the world at the ........", eng: "Zoo" },
+                    { q: "When the car needs fuel, we stop at the ........", eng: "Gas Station" },
+                    { q: "A place where historical items are kept is called a ........", eng: "Museum" },
+                    { q: "A place where you can get your hair cut is a ........", eng: "Barbershop / Hair Salon" },
+                    { q: "A place where medicines are prepared and sold is a ........", eng: "Pharmacy / Drugstore" },
+                    { q: "A place where sick animals are treated is a ........", eng: "Veterinary Clinic / Vet" },
+                    { q: "A place where you can borrow money to buy a house is a ........", eng: "Bank" },
+                    { q: "A place with many shops under one roof is a ........", eng: "Mall" },
+                    { q: "A building where you stay when you travel is a ........", eng: "Hotel" },
+                    { q: "A place where you go to exercise and lift weights is a ........", eng: "Gym" },
+                    { q: "A place where ships dock and load cargo is a ........", eng: "Port / Harbor" },
+                    { q: "A place where you can watch plays and live performances is a ........", eng: "Theater" },
+                    { q: "A place where you can see paintings and sculptures is an Art ........", eng: "Gallery" }
+                ]
+            },
+            'describing-people': {
+                easy: [
+                    { q: "Tinggi", eng: "Tall" },
+                    { q: "Pendek", eng: "Short" },
+                    { q: "Kurus", eng: "Thin" },
+                    { q: "Gemuk", eng: "Fat / Plump" },
+                    { q: "Cantik", eng: "Beautiful" },
+                    { q: "Tampan", eng: "Handsome" },
+                    { q: "Tua", eng: "Old" },
+                    { q: "Muda", eng: "Young" },
+                    { q: "Kuat", eng: "Strong" },
+                    { q: "Lemah", eng: "Weak" },
+                    { q: "Pintar", eng: "Smart" },
+                    { q: "Bodoh", eng: "Stupid / Silly" },
+                    { q: "Baik hati", eng: "Kind" },
+                    { q: "Jahat", eng: "Bad / Evil" },
+                    { q: "Lucu", eng: "Funny" }
+                ],
+                medium: [
+                    { q: "My grandmother is old, but my baby brother is ........", eng: "young" },
+                    { q: "The basketball player is very ........", eng: "tall" },
+                    { q: "She has long hair, but he has ........ hair.", eng: "short" },
+                    { q: "He is strong because he lifts weights, but the sick boy feels ........", eng: "weak" },
+                    { q: "She always smiles and helps others, she is very ........", eng: "kind / friendly" },
+                    { q: "A person who is not afraid of danger is ........", eng: "brave" },
+                    { q: "A person who learns quickly is very ........", eng: "smart / clever" },
+                    { q: "Someone who makes people laugh is ........", eng: "funny" },
+                    { q: "A baby with chubby cheeks is very ........", eng: "cute" },
+                    { q: "The fashion model is very ........", eng: "beautiful / pretty" },
+                    { q: "The movie star looks very ........ in his suit.", eng: "handsome" },
+                    { q: "Someone who eats too much might become ........", eng: "fat / overweight" },
+                    { q: "Someone who doesn't eat enough might be too ........", eng: "thin / skinny" },
+                    { q: "A person who works hard is very ........", eng: "hardworking" },
+                    { q: "A person who doesn't want to work or move is ........", eng: "lazy" }
+                ],
+                hard: [
+                    { q: "Someone who wears glasses might have poor ........", eng: "eyesight" },
+                    { q: "A person with hair like the color of gold is called ........", eng: "blonde" },
+                    { q: "He makes everyone laugh, he is a ........ person.", eng: "funny" },
+                    { q: "She is not afraid of anything, she is very ........", eng: "brave" },
+                    { q: "Someone who talks a lot is very ........", eng: "talkative" },
+                    { q: "Someone who does not talk much is ........", eng: "quiet / shy" },
+                    { q: "Someone who always tells the truth is ........", eng: "honest" },
+                    { q: "Someone who gives away money or gifts easily is ........", eng: "generous" },
+                    { q: "Someone who only cares about themselves is ........", eng: "selfish" },
+                    { q: "Someone who is easily annoyed or angered is bad-........", eng: "tempered" },
+                    { q: "A person with no hair is ........", eng: "bald" },
+                    { q: "Hair that is not straight is ........", eng: "curly / wavy" },
+                    { q: "Hair on a man's chin and cheeks is a ........", eng: "beard" },
+                    { q: "Hair above a man's upper lip is a ........", eng: "mustache" },
+                    { q: "Small brown spots on the skin, often on the face, are ........", eng: "freckles" }
+                ]
+            },
+            'possessive': {
+                easy: [
+                    { q: "Milikku", eng: "Mine" },
+                    { q: "Milikmu", eng: "Yours" },
+                    { q: "Buku saya", eng: "My book" },
+                    { q: "Tas kamu", eng: "Your bag" },
+                    { q: "Mobilnya (Laki-laki)", eng: "His car" },
+                    { q: "Sepatunya (Perempuan)", eng: "Her shoes" },
+                    { q: "Rumah kita", eng: "Our house" },
+                    { q: "Kucing mereka", eng: "Their cat" },
+                    { q: "Ekornya (Hewan)", eng: "Its tail" },
+                    { q: "Mainan saya", eng: "My toy" },
+                    { q: "Pensilmu", eng: "Your pencil" },
+                    { q: "Bajunya (Laki-laki)", eng: "His shirt" },
+                    { q: "Topinya (Perempuan)", eng: "Her hat" },
+                    { q: "Kelas kita", eng: "Our class" },
+                    { q: "Guru mereka", eng: "Their teacher" }
+                ],
+                medium: [
+                    { q: "This is not my pen. Is it ........?", eng: "yours" },
+                    { q: "That dog belongs to them. It is ........ dog.", eng: "their" },
+                    { q: "We own this house. It is ........ house.", eng: "our" },
+                    { q: "The cat is eating ........ food.", eng: "its" },
+                    { q: "She forgot ........ umbrella at home.", eng: "her" },
+                    { q: "He is driving ........ new car.", eng: "his" },
+                    { q: "I can't find ........ keys anywhere.", eng: "my" },
+                    { q: "Is this book ........ or mine?", eng: "yours" },
+                    { q: "That is not our car, ........ is blue.", eng: "ours" },
+                    { q: "Their house is big, but ........ is small.", eng: "theirs" },
+                    { q: "The bird is feeding ........ babies.", eng: "its" },
+                    { q: "Please wash ........ hands before eating.", eng: "your" },
+                    { q: "Mary and ........ sister are going shopping.", eng: "her" },
+                    { q: "John and ........ brother play football.", eng: "his" },
+                    { q: "The children are playing with ........ toys.", eng: "their" }
+                ],
+                hard: [
+                    { q: "This jacket belongs to John. It is ........ jacket.", eng: "his" },
+                    { q: "The students opened ........ books on page 10.", eng: "their" },
+                    { q: "Is this book ........ or mine?", eng: "yours" },
+                    { q: "I lost my phone, can I borrow ........?", eng: "yours" },
+                    { q: "They are painting ........ fence.", eng: "their" },
+                    { q: "Whose bag is this? It's ........ (milik saya).", eng: "mine" },
+                    { q: "We bought this house. It is now ........ (milik kita).", eng: "ours" },
+                    { q: "The dog wagged ........ tail happily.", eng: "its" },
+                    { q: "The company changed ........ name last year.", eng: "its" },
+                    { q: "I like your dress, but I don't like ........ (milik Maria).", eng: "hers" },
+                    { q: "He broke his leg, and she broke ........ (kakinya sendiri).", eng: "hers" },
+                    { q: "My laptop is broken, can I use ........ (milikmu)?", eng: "yours" },
+                    { q: "The responsibility is entirely ........ (milik mereka).", eng: "theirs" },
+                    { q: "This is my brother's room. It's ........", eng: "his" },
+                    { q: "Don't touch that, it's not ........ (milikmu).", eng: "yours" }
+                ]
+            },
+             'there-is-are': {
+                easy: [
+                    { q: "Ada sebuah apel", eng: "There is an apple" },
+                    { q: "Ada banyak buku", eng: "There are many books" },
+                    { q: "Ada satu meja", eng: "There is one desk" },
+                    { q: "Ada dua kucing", eng: "There are two cats" },
+                    { q: "Ada seekor anjing", eng: "There is a dog" },
+                    { q: "Ada sebuah mobil", eng: "There is a car" },
+                    { q: "Ada tiga burung", eng: "There are three birds" },
+                    { q: "Ada seorang guru", eng: "There is a teacher" },
+                    { q: "Ada lima murid", eng: "There are five students" },
+                    { q: "Ada sebuah pohon", eng: "There is a tree" },
+                    { q: "Ada banyak bunga", eng: "There are many flowers" },
+                    { q: "Ada sebuah bola", eng: "There is a ball" },
+                    { q: "Ada dua jendela", eng: "There are two windows" },
+                    { q: "Ada satu pintu", eng: "There is one door" },
+                    { q: "Ada banyak orang", eng: "There are many people" }
+                ],
+                medium: [
+                    { q: "........ three birds on the roof.", eng: "There are" },
+                    { q: "........ a large tree in my garden.", eng: "There is" },
+                    { q: "How many chairs ........ in the classroom?", eng: "are there" },
+                    { q: "........ any milk in the fridge?", eng: "Is there" },
+                    { q: "........ five students absent today.", eng: "There are" },
+                    { q: "........ a new message on your phone.", eng: "There is" },
+                    { q: "........ many cars on the street today.", eng: "There are" },
+                    { q: "........ a good movie on TV tonight.", eng: "There is" },
+                    { q: "........ any questions?", eng: "Are there" },
+                    { q: "........ only one piece of cake left.", eng: "There is" },
+                    { q: "........ some apples in the basket.", eng: "There are" },
+                    { q: "........ a dog barking outside.", eng: "There is" },
+                    { q: "........ not many people at the park.", eng: "There are" },
+                    { q: "........ a mistake in your homework.", eng: "There is" },
+                    { q: "........ two bedrooms in my house.", eng: "There are" }
+                ],
+                hard: [
+                    { q: "........ some water in the glass.", eng: "There is" },
+                    { q: "Look! ........ a beautiful rainbow in the sky.", eng: "There is" },
+                    { q: "........ many stars visible tonight.", eng: "There are" },
+                    { q: "I'm sorry, but ........ no time left.", eng: "there is" },
+                    { q: "........ not many people at the party.", eng: "There are" },
+                    { q: "........ a lot of noise coming from next door.", eng: "There is" },
+                    { q: "........ several reasons why I can't go.", eng: "There are" },
+                    { q: "........ any sugar in this coffee?", eng: "Is there" },
+                    { q: "........ no doubt that she is the best player.", eng: "There is" },
+                    { q: "........ many problems we need to solve.", eng: "There are" },
+                    { q: "........ a storm coming, look at those clouds.", eng: "There is" },
+                    { q: "........ any messages for me while I was out?", eng: "Were there" },
+                    { q: "........ a long line at the supermarket yesterday.", eng: "There was" },
+                    { q: "........ many people at the concert last night.", eng: "There were" },
+                    { q: "........ going to be a test next week.", eng: "There is" }
+                ]
+            },
+            'present-continuous': {
+                easy: [
+                    { q: "Saya sedang makan", eng: "I am eating" },
+                    { q: "Dia (L) sedang tidur", eng: "He is sleeping" },
+                    { q: "Mereka sedang bermain", eng: "They are playing" },
+                    { q: "Kami sedang berlari", eng: "We are running" },
+                    { q: "Dia (P) sedang membaca", eng: "She is reading" },
+                    { q: "Saya sedang menulis", eng: "I am writing" },
+                    { q: "Dia (L) sedang berbicara", eng: "He is talking" },
+                    { q: "Mereka sedang bernyanyi", eng: "They are singing" },
+                    { q: "Kami sedang menonton", eng: "We are watching" },
+                    { q: "Dia (P) sedang memasak", eng: "She is cooking" },
+                    { q: "Kucing sedang minum", eng: "The cat is drinking" },
+                    { q: "Burung sedang terbang", eng: "The bird is flying" },
+                    { q: "Saya sedang belajar", eng: "I am studying" },
+                    { q: "Dia (L) sedang melompat", eng: "He is jumping" },
+                    { q: "Mereka sedang tertawa", eng: "They are laughing" }
+                ],
+                medium: [
+                    { q: "Listen! The baby ........ (crying).", eng: "is crying" },
+                    { q: "Look! The children ........ (running) in the park.", eng: "are running" },
+                    { q: "I can't talk right now, I ........ (studying).", eng: "am studying" },
+                    { q: "My mother ........ (cooking) dinner right now.", eng: "is cooking" },
+                    { q: "It ........ (raining) heavily outside.", eng: "is raining" },
+                    { q: "We ........ (watching) a movie at the cinema.", eng: "are watching" },
+                    { q: "He ........ (not listening) to the teacher.", eng: "is not listening" },
+                    { q: "........ they (playing) football?", eng: "Are ... playing" },
+                    { q: "The dog ........ (barking) at the mailman.", eng: "is barking" },
+                    { q: "She ........ (wearing) a red dress today.", eng: "is wearing" },
+                    { q: "I ........ (waiting) for the bus.", eng: "am waiting" },
+                    { q: "They ........ (having) lunch in the cafeteria.", eng: "are having" },
+                    { q: "........ you (doing) your homework?", eng: "Are ... doing" },
+                    { q: "The sun ........ (shining) brightly today.", eng: "is shining" },
+                    { q: "My father ........ (driving) his car.", eng: "is driving" }
+                ],
+                hard: [
+                    { q: "Why ........ you (laughing)?", eng: "are ... laughing" },
+                    { q: "The mechanic ........ (fixing) my car at the moment.", eng: "is fixing" },
+                    { q: "We ........ (not watching) TV, we are reading.", eng: "are not watching" },
+                    { q: "She ........ (wearing) a beautiful red dress tonight.", eng: "is wearing" },
+                    { q: "........ he (listening) to music now?", eng: "Is ... listening" },
+                    { q: "What ........ you (doing) right now?", eng: "are ... doing" },
+                    { q: "They ........ (staying) in a hotel this week.", eng: "are staying" },
+                    { q: "My sister ........ (getting) ready for the party.", eng: "is getting" },
+                    { q: "The population of the city ........ (growing) fast.", eng: "is growing" },
+                    { q: "I ........ (thinking) about buying a new bike.", eng: "am thinking" },
+                    { q: "She ........ (always complaining) about her job.", eng: "is always complaining" },
+                    { q: "........ it (still raining) outside?", eng: "Is ... still raining" },
+                    { q: "The children ........ (decorating) the Christmas tree.", eng: "are decorating" },
+                    { q: "We ........ (planning) a surprise party for him.", eng: "are planning" },
+                    { q: "He ........ (trying) to fix the broken window.", eng: "is trying" }
+                ]
+            },
+            'body-parts': {
+                easy: [
+                    { q: "Mata", eng: "Eye / Eyes" },
+                    { q: "Hidung", eng: "Nose" },
+                    { q: "Telinga", eng: "Ear / Ears" },
+                    { q: "Mulut", eng: "Mouth" },
+                    { q: "Tangan", eng: "Hand / Hands" },
+                    { q: "Kaki (bawah)", eng: "Foot / Feet" },
+                    { q: "Kepala", eng: "Head" },
+                    { q: "Rambut", eng: "Hair" },
+                    { q: "Lengan", eng: "Arm" },
+                    { q: "Kaki (atas)", eng: "Leg" },
+                    { q: "Jari", eng: "Finger" },
+                    { q: "Gigi", eng: "Tooth / Teeth" },
+                    { q: "Lidah", eng: "Tongue" },
+                    { q: "Bibir", eng: "Lip / Lips" },
+                    { q: "Pipi", eng: "Cheek" }
+                ],
+                medium: [
+                    { q: "We use our ........ to see the beautiful sunset.", eng: "eyes" },
+                    { q: "We use our ........ to smell the flowers.", eng: "nose" },
+                    { q: "We listen to music with our ........", eng: "ears" },
+                    { q: "You chew food using your ........", eng: "teeth" },
+                    { q: "There are five ........ on one hand.", eng: "fingers" },
+                    { q: "We use our ........ to taste food.", eng: "tongue" },
+                    { q: "We wear a hat on our ........", eng: "head" },
+                    { q: "We wear shoes on our ........", eng: "feet" },
+                    { q: "We bend our ........ to sit down.", eng: "knees" },
+                    { q: "The part connecting your head to your body is your ........", eng: "neck" },
+                    { q: "The joint in the middle of your arm is your ........", eng: "elbow" },
+                    { q: "Your stomach is also called your ........", eng: "belly" },
+                    { q: "We carry a backpack on our ........", eng: "back / shoulders" },
+                    { q: "You have ten ........ on your feet.", eng: "toes" },
+                    { q: "We brush our ........ twice a day.", eng: "teeth" }
+                ],
+                hard: [
+                    { q: "The joint in the middle of your leg is the ........", eng: "knee" },
+                    { q: "The hard covering on the ends of your fingers is called a ........", eng: "nail" },
+                    { q: "The back part of your foot is called the ........", eng: "heel" },
+                    { q: "Your heart and lungs are inside your ........", eng: "chest" },
+                    { q: "The joint connecting your hand and arm is the ........", eng: "wrist" },
+                    { q: "The front part of your face below your mouth is your ........", eng: "chin" },
+                    { q: "The hairy line above your eyes is your ........", eng: "eyebrow" },
+                    { q: "The hairs on the edge of your eyelids are ........", eng: "eyelashes" },
+                    { q: "The part of your body where food goes after you swallow it is the ........", eng: "stomach" },
+                    { q: "The red liquid that flows through your body is ........", eng: "blood" },
+                    { q: "The hard white things inside your body that give it shape are ........", eng: "bones" },
+                    { q: "The organ in your head used for thinking is the ........", eng: "brain" },
+                    { q: "The joint connecting your foot and leg is the ........", eng: "ankle" },
+                    { q: "The large muscle in your chest that pumps blood is the ........", eng: "heart" },
+                    { q: "The two organs in your chest you use for breathing are the ........", eng: "lungs" }
+                ]
+            },
+            'transportation': {
+                easy: [
+                    { q: "Mobil", eng: "Car" },
+                    { q: "Sepeda", eng: "Bicycle / Bike" },
+                    { q: "Kereta api", eng: "Train" },
+                    { q: "Pesawat terbang", eng: "Airplane / Plane" },
+                    { q: "Bus", eng: "Bus" },
+                    { q: "Perahu", eng: "Boat" },
+                    { q: "Sepeda motor", eng: "Motorcycle" },
+                    { q: "Truk", eng: "Truck" },
+                    { q: "Kapal", eng: "Ship" },
+                    { q: "Helikopter", eng: "Helicopter" },
+                    { q: "Taksi", eng: "Taxi / Cab" },
+                    { q: "Kereta kuda", eng: "Carriage" },
+                    { q: "Becak", eng: "Pedicab" },
+                    { q: "Ambulans", eng: "Ambulance" },
+                    { q: "Mobil pemadam", eng: "Fire engine" }
+                ],
+                medium: [
+                    { q: "A fast transport that flies in the sky is an ........", eng: "airplane" },
+                    { q: "A vehicle with two wheels you pedal is a ........", eng: "bicycle" },
+                    { q: "A long vehicle that travels on tracks is a ........", eng: "train" },
+                    { q: "Large vehicles used to carry students to school are school ........", eng: "buses" },
+                    { q: "A vehicle that travels on water is a ........", eng: "boat / ship" },
+                    { q: "A vehicle you hire with a driver to take you somewhere is a ........", eng: "taxi / cab" },
+                    { q: "A fast vehicle with two wheels and an engine is a ........", eng: "motorcycle" },
+                    { q: "A vehicle that takes sick people to the hospital is an ........", eng: "ambulance" },
+                    { q: "A large heavy vehicle used for carrying goods is a ........", eng: "truck" },
+                    { q: "A small flying vehicle with spinning blades on top is a ........", eng: "helicopter" },
+                    { q: "A vehicle used by police officers is a police ........", eng: "car" },
+                    { q: "You need a ticket to board a plane or ........", eng: "train" },
+                    { q: "A large ship that carries people across the ocean is a ........", eng: "cruise ship" },
+                    { q: "A boat that takes people and cars across a river is a ........", eng: "ferry" },
+                    { q: "You wait for a bus at the bus ........", eng: "stop" }
+                ],
+                hard: [
+                    { q: "A small flying vehicle with spinning blades on top is a ........", eng: "helicopter" },
+                    { q: "A large heavy vehicle used for carrying goods is a ........", eng: "truck" },
+                    { q: "A fast boat with an engine is called a ........", eng: "speedboat" },
+                    { q: "An underground electric railway in a city is the ........", eng: "subway / metro" },
+                    { q: "To go to space, astronauts use a ........", eng: "rocket" },
+                    { q: "A vehicle that travels underwater is a ........", eng: "submarine" },
+                    { q: "A hot air balloon uses heated air to ........", eng: "fly / float" },
+                    { q: "A vehicle pulled by dogs over snow is a ........", eng: "sled" },
+                    { q: "A train that carries goods, not passengers, is a ........ train.", eng: "freight" },
+                    { q: "A large vehicle used for farming is a ........", eng: "tractor" },
+                    { q: "A small vehicle for one or two people used on snow is a ........", eng: "snowmobile" },
+                    { q: "A public vehicle powered by electricity connected to overhead wires is a ........", eng: "tram / trolley" },
+                    { q: "A small aircraft without an engine, carried by the wind, is a ........", eng: "glider" },
+                    { q: "A heavy vehicle used to flatten new roads is a ........", eng: "steamroller" },
+                    { q: "A vehicle used to clear snow from roads is a snow ........", eng: "plow" }
+                ]
+            },
+             'rooms': {
+                easy: [
+                    { q: "Kamar tidur", eng: "Bedroom" },
+                    { q: "Kamar mandi", eng: "Bathroom" },
+                    { q: "Dapur", eng: "Kitchen" },
+                    { q: "Ruang tamu", eng: "Living room" },
+                    { q: "Ruang makan", eng: "Dining room" },
+                    { q: "Garasi", eng: "Garage" },
+                    { q: "Taman", eng: "Garden" },
+                    { q: "Balkon", eng: "Balcony" },
+                    { q: "Atap", eng: "Roof" },
+                    { q: "Lantai", eng: "Floor" },
+                    { q: "Dinding", eng: "Wall" },
+                    { q: "Jendela", eng: "Window" },
+                    { q: "Pintu", eng: "Door" },
+                    { q: "Tangga", eng: "Stairs" },
+                    { q: "Pagar", eng: "Fence" }
+                ],
+                medium: [
+                    { q: "We sleep in the ........", eng: "bedroom" },
+                    { q: "My mother cooks food in the ........", eng: "kitchen" },
+                    { q: "We wash our hands and take a shower in the ........", eng: "bathroom" },
+                    { q: "We eat our meals together in the ........", eng: "dining room" },
+                    { q: "We watch TV with family in the ........", eng: "living room" },
+                    { q: "We keep our car in the ........", eng: "garage" },
+                    { q: "We plant flowers in the ........", eng: "garden" },
+                    { q: "We walk up the ........ to get to the second floor.", eng: "stairs" },
+                    { q: "You open the ........ to enter the house.", eng: "door" },
+                    { q: "You look outside through the ........", eng: "window" },
+                    { q: "The top covering of a house is the ........", eng: "roof" },
+                    { q: "The flat surface you walk on inside is the ........", eng: "floor" },
+                    { q: "A platform projecting from the wall of a building is a ........", eng: "balcony" },
+                    { q: "A structure built to enclose an area, like a yard, is a ........", eng: "fence" },
+                    { q: "A room where you can wash your clothes is the laundry ........", eng: "room" }
+                ],
+                hard: [
+                    { q: "The room under the roof used for storage is the ........", eng: "attic" },
+                    { q: "The underground room of a house is the ........", eng: "basement" },
+                    { q: "We keep our car in the ........", eng: "garage" },
+                    { q: "The area outside the house where flowers grow is the ........", eng: "garden" },
+                    { q: "A small room near the kitchen for storing food is a ........", eng: "pantry" },
+                    { q: "A room where people work or study at home is an ........", eng: "office / study" },
+                    { q: "A room specifically for guests to sleep in is a ........ room.", eng: "guest" },
+                    { q: "An open space in front of the entrance to a house is a ........", eng: "porch" },
+                    { q: "A covered path or passage between rooms in a house is a ........", eng: "hallway / corridor" },
+                    { q: "A glass building for growing plants is a ........", eng: "greenhouse" },
+                    { q: "A small building in the garden for storing tools is a ........", eng: "shed" },
+                    { q: "The structure over a fire in a room where smoke goes out is a ........", eng: "chimney" },
+                    { q: "The main entrance hall of a large building or hotel is the ........", eng: "lobby" },
+                    { q: "A paved outdoor area next to a house is a ........", eng: "patio" },
+                    { q: "A room containing a toilet and sink is often called a ........", "eng": "restroom / toilet" }
+                ]
+            },
+            'quantifiers': {
+                easy: [
+                    { q: "Banyak (Benda bisa dihitung)", eng: "Many" },
+                    { q: "Banyak (Benda tak bisa dihitung)", eng: "Much" },
+                    { q: "Beberapa", eng: "Some" },
+                    { q: "Sedikit (Bisa dihitung)", eng: "A few" },
+                    { q: "Sedikit (Tak bisa dihitung)", eng: "A little" },
+                    { q: "Semua", eng: "All" },
+                    { q: "Tidak satupun", eng: "None" },
+                    { q: "Setiap", eng: "Every" },
+                    { q: "Masing-masing", eng: "Each" },
+                    { q: "Setengah", eng: "Half" },
+                    { q: "Lebih banyak", eng: "More" },
+                    { q: "Lebih sedikit", eng: "Less / Fewer" },
+                    { q: "Cukup", eng: "Enough" },
+                    { q: "Kosong", eng: "Empty" },
+                    { q: "Penuh", eng: "Full" }
+                ],
+                medium: [
+                    { q: "I have ........ friends at school. (Banyak)", eng: "many" },
+                    { q: "There is not ........ sugar left in the jar. (Banyak)", eng: "much" },
+                    { q: "Can I have ........ water, please? (Beberapa)", eng: "some" },
+                    { q: "I only have ........ coins in my pocket. (Sedikit)", eng: "a few" },
+                    { q: "Do you have ........ money to buy ice cream? (Apapun)", eng: "any" },
+                    { q: "........ students passed the test. (Semua)", eng: "All" },
+                    { q: "I have read ........ single book in this library. (Setiap)", eng: "every" },
+                    { q: "She ate ........ of the pizza. (Setengah)", eng: "half" },
+                    { q: "We need ........ time to finish this project. (Lebih banyak)", eng: "more" },
+                    { q: "There is ........ milk left in the fridge. (Tidak ada)", eng: "no" },
+                    { q: "Are there ........ apples in the basket? (Beberapa - pertanyaan)", eng: "any" },
+                    { q: "I have ........ time to help you today. (Sedikit - tak bisa dihitung)", eng: "a little" },
+                    { q: "He drank the ........ bottle of water. (Seluruh)", eng: "whole" },
+                    { q: "I don't have ........ money to buy that car. (Cukup)", eng: "enough" },
+                    { q: "........ of the boys plays a different instrument. (Masing-masing)", eng: "Each" }
+                ],
+                hard: [
+                    { q: "There are too ........ cars on the street today causing a traffic jam.", eng: "many" },
+                    { q: "She put just a ........ salt in the soup.", eng: "little" },
+                    { q: "We need ........ eggs to make a cake, maybe three or four.", eng: "a few" },
+                    { q: "He doesn't have ........ patience left.", eng: "much" },
+                    { q: "I bought ........ apples from the market.", eng: "some" },
+                    { q: "We have very ........ time before the train leaves. (Sangat sedikit)", eng: "little" },
+                    { q: "There are ........ people here than yesterday. (Lebih sedikit - bisa dihitung)", eng: "fewer" },
+                    { q: "There is ........ noise in the country than in the city. (Lebih sedikit - tak bisa dihitung)", eng: "less" },
+                    { q: "........ of my friends are coming to the party. (Banyak dari)", eng: "A lot of / Many" },
+                    { q: "Is there ........ reason why you are late? (Adakah)", eng: "any" },
+                    { q: "I searched everywhere, but found ........ of the missing items. (Tidak satupun)", eng: "none" },
+                    { q: "She has ........ money, but she is very happy. (Sedikit - negatif)", eng: "little" },
+                    { q: "He has ........ friends, he is quite popular. (Beberapa - positif)", eng: "a few" },
+                    { q: "........ student must wear a uniform. (Tiap-tiap)", eng: "Every / Each" },
+                    { q: "There is a large ........ of information available on the internet. (Jumlah)", eng: "amount" }
+                ]
+            },
+            'feelings': {
+                easy: [
+                    { q: "Senang", eng: "Happy" },
+                    { q: "Sedih", eng: "Sad" },
+                    { q: "Marah", eng: "Angry" },
+                    { q: "Takut", eng: "Scared / Afraid" },
+                    { q: "Lelah", eng: "Tired" },
+                    { q: "Lapar", eng: "Hungry" },
+                    { q: "Haus", eng: "Thirsty" },
+                    { q: "Sakit", eng: "Sick" },
+                    { q: "Mengantuk", eng: "Sleepy" },
+                    { q: "Terkejut", eng: "Surprised" },
+                    { q: "Berani", eng: "Brave" },
+                    { q: "Bosan", eng: "Bored" },
+                    { q: "Malu", eng: "Shy" },
+                    { q: "Menangis", eng: "Crying" },
+                    { q: "Tertawa", eng: "Laughing" }
+                ],
+                medium: [
+                    { q: "I get ........ when I lose my favorite toy.", eng: "sad" },
+                    { q: "He felt ........ after running a long marathon.", eng: "tired" },
+                    { q: "She is ........ of the dark room.", eng: "scared / afraid" },
+                    { q: "If someone breaks my phone, I will be very ........", eng: "angry" },
+                    { q: "I am so ........ because it is my birthday today!", eng: "happy" },
+                    { q: "I didn't eat breakfast, so I am very ........ now.", eng: "hungry" },
+                    { q: "After exercising, you usually feel very ........", eng: "thirsty" },
+                    { q: "He stayed up late playing games, now he is ........", eng: "sleepy" },
+                    { q: "She felt ........ when everyone sang 'Happy Birthday'.", eng: "surprised" },
+                    { q: "I have nothing to do, I am so ........", eng: "bored" },
+                    { q: "The little girl hides behind her mother because she is ........", eng: "shy" },
+                    { q: "He caught a cold and feels ........ today.", eng: "sick" },
+                    { q: "The superhero is very ........ and saves the day.", eng: "brave" },
+                    { q: "He is ........ because he got a good grade on his test.", eng: "proud / happy" },
+                    { q: "I feel ........ because I made a mistake.", eng: "sorry / bad" }
+                ],
+                hard: [
+                    { q: "I am feeling very ........ because I have a big test tomorrow.", eng: "nervous / anxious" },
+                    { q: "He was very ........ when he saw the surprise party.", eng: "surprised" },
+                    { q: "She is ........ with the results of her hard work.", eng: "proud / satisfied" },
+                    { q: "I feel ........ when I have nothing to do.", eng: "bored" },
+                    { q: "The ghost story made him feel ........", eng: "terrified" },
+                    { q: "He felt ........ after waiting for an hour for the bus.", eng: "annoyed / frustrated" },
+                    { q: "She is ........ of her sister's new toy.", eng: "jealous" },
+                    { q: "I feel very ........ when I listen to classical music.", eng: "relaxed / calm" },
+                    { q: "He was ........ when he tripped and fell in front of everyone.", eng: "embarrassed" },
+                    { q: "She is very ........ about her trip to Disneyland.", eng: "excited" },
+                    { q: "The movie was so sad, it made me feel ........", eng: "depressed / sad" },
+                    { q: "I am ........ about what will happen next.", eng: "curious" },
+                    { q: "He felt ........ because he didn't study for the exam.", eng: "worried" },
+                    { q: "She was ........ by the loud noise outside.", eng: "startled / shocked" },
+                    { q: "I feel ........ when I am surrounded by my good friends.", eng: "comfortable / safe" }
+                ]
+            },
+            'currencies': {
+                easy: [
+                    { q: "Rupiah", eng: "Rupiah" },
+                    { q: "Dolar", eng: "Dollar" },
+                    { q: "Uang", eng: "Money" },
+                    { q: "Koin", eng: "Coin" },
+                    { q: "Uang kertas", eng: "Banknote / Paper money" },
+                    { q: "Dompet", eng: "Wallet" },
+                    { q: "Membeli", eng: "Buy" },
+                    { q: "Menjual", eng: "Sell" },
+                    { q: "Membayar", eng: "Pay" },
+                    { q: "Harga", eng: "Price" },
+                    { q: "Mahal", eng: "Expensive" },
+                    { q: "Murah", eng: "Cheap" },
+                    { q: "Kasir", eng: "Cashier" },
+                    { q: "Toko", eng: "Shop" },
+                    { q: "Bank", eng: "Bank" }
+                ],
+                medium: [
+                    { q: "The currency of Indonesia is the ........", eng: "Rupiah" },
+                    { q: "The currency of the United States is the ........", eng: "Dollar" },
+                    { q: "We use ........ to buy things in the shop.", eng: "money" },
+                    { q: "A metal piece of money is called a ........", eng: "coin" },
+                    { q: "I need some small ........ to pay for the parking.", eng: "change" },
+                    { q: "Paper money is also called a ........", eng: "banknote / bill" },
+                    { q: "You put your money in a ........ to carry it.", eng: "wallet / purse" },
+                    { q: "When something costs a lot of money, it is ........", eng: "expensive" },
+                    { q: "When something does not cost much money, it is ........", eng: "cheap" },
+                    { q: "You give money to the ........ when you buy something in a store.", eng: "cashier" },
+                    { q: "You can keep your money safely in a ........", eng: "bank" },
+                    { q: "To get money from your bank account, you go to an ........", eng: "ATM" },
+                    { q: "The amount of money you have to pay for something is its ........", eng: "price" },
+                    { q: "If you don't have enough money, you can ........ some from a bank.", eng: "borrow" },
+                    { q: "If you have extra money, you can ........ it in a piggy bank.", eng: "save" }
+                ],
+                hard: [
+                    { q: "The currency used in many European countries is the ........", eng: "Euro" },
+                    { q: "The currency of Japan is the ........", eng: "Yen" },
+                    { q: "The currency of the United Kingdom is the ........", eng: "Pound" },
+                    { q: "You can keep your money safe in a ........", eng: "wallet" },
+                    { q: "The machine where you can take out money is an ........", eng: "ATM" },
+                    { q: "The currency of China is the ........", eng: "Yuan / Renminbi" },
+                    { q: "The currency of India is the ........", eng: "Rupee" },
+                    { q: "A plastic card you use to pay for things directly from your bank is a ........ card.", eng: "debit" },
+                    { q: "A plastic card you use to borrow money to pay for things is a ........ card.", eng: "credit" },
+                    { q: "A piece of paper showing how much you paid for something is a ........", eng: "receipt" },
+                    { q: "Money you give to someone for a service, like a waiter, is a ........", eng: "tip" },
+                    { q: "Money you pay to the government is called ........", eng: "tax" },
+                    { q: "If a shop lowers its prices, it is having a ........", eng: "sale" },
+                    { q: "The money you get back when you pay more than the price is your ........", eng: "change" },
+                    { q: "To transfer money from one currency to another is to ........ it.", eng: "exchange" }
+                ]
+            },
+            'dates': {
+                easy: [
+                    { q: "Senin", eng: "Monday" },
+                    { q: "Minggu", eng: "Sunday" },
+                    { q: "Januari", eng: "January" },
+                    { q: "Hari ini", eng: "Today" },
+                    { q: "Besok", eng: "Tomorrow" },
+                    { q: "Kemarin", eng: "Yesterday" },
+                    { q: "Selasa", eng: "Tuesday" },
+                    { q: "Rabu", eng: "Wednesday" },
+                    { q: "Kamis", eng: "Thursday" },
+                    { q: "Jumat", eng: "Friday" },
+                    { q: "Sabtu", eng: "Saturday" },
+                    { q: "Desember", eng: "December" },
+                    { q: "Tahun", eng: "Year" },
+                    { q: "Bulan", eng: "Month" },
+                    { q: "Minggu (Pekan)", eng: "Week" }
+                ],
+                medium: [
+                    { q: "The day after Tuesday is ........", eng: "Wednesday" },
+                    { q: "The first month of the year is ........", eng: "January" },
+                    { q: "If today is Friday, yesterday was ........", eng: "Thursday" },
+                    { q: "The month after August is ........", eng: "September" },
+                    { q: "Saturday and Sunday are called the ........", eng: "weekend" },
+                    { q: "The day before Friday is ........", eng: "Thursday" },
+                    { q: "The last month of the year is ........", eng: "December" },
+                    { q: "The month between April and June is ........", eng: "May" },
+                    { q: "If today is Monday, tomorrow is ........", eng: "Tuesday" },
+                    { q: "There are seven days in a ........", eng: "week" },
+                    { q: "There are twelve months in a ........", eng: "year" },
+                    { q: "The day you were born is your ........", eng: "birthday" },
+                    { q: "The third day of the week is ........", eng: "Wednesday" },
+                    { q: "The tenth month of the year is ........", eng: "October" },
+                    { q: "A paper or book that shows days and months is a ........", eng: "calendar" }
+                ],
+                hard: [
+                    { q: "The 12th month of the year is ........", eng: "December" },
+                    { q: "February has 29 days in a ........ year.", eng: "leap" },
+                    { q: "The day before Wednesday is ........", eng: "Tuesday" },
+                    { q: "A period of ten years is called a ........", eng: "decade" },
+                    { q: "A period of 100 years is called a ........", eng: "century" },
+                    { q: "A period of 1000 years is called a ........", eng: "millennium" },
+                    { q: "The second month of the year, which is usually the shortest, is ........", eng: "February" },
+                    { q: "The month when Christmas is celebrated is ........", eng: "December" },
+                    { q: "The season that starts in December in the Northern Hemisphere is ........", eng: "Winter" },
+                    { q: "The season that starts in June in the Northern Hemisphere is ........", eng: "Summer" },
+                    { q: "Halloween is celebrated on the 31st of ........", eng: "October" },
+                    { q: "Valentine's Day is on the 14th of ........", eng: "February" },
+                    { q: "The day after tomorrow is often just called ........", eng: "the day after tomorrow" },
+                    { q: "The day before yesterday is often just called ........", eng: "the day before yesterday" },
+                    { q: "The 1st of January is New Year's ........", eng: "Day" }
+                ]
+            },
+            'animals': {
+                easy: [
+                    { q: "Kucing", eng: "Cat" },
+                    { q: "Anjing", eng: "Dog" },
+                    { q: "Burung", eng: "Bird" },
+                    { q: "Ikan", eng: "Fish" },
+                    { q: "Kuda", eng: "Horse" },
+                    { q: "Gajah", eng: "Elephant" },
+                    { q: "Sapi", eng: "Cow" },
+                    { q: "Kambing", eng: "Goat" },
+                    { q: "Ayam", eng: "Chicken" },
+                    { q: "Bebek", eng: "Duck" },
+                    { q: "Harimau", eng: "Tiger" },
+                    { q: "Singa", eng: "Lion" },
+                    { q: "Ular", eng: "Snake" },
+                    { q: "Monyet", eng: "Monkey" },
+                    { q: "Tikus", eng: "Mouse" }
+                ],
+                medium: [
+                    { q: "The animal that gives us milk and goes 'moo' is a ........", eng: "cow" },
+                    { q: "A bird that cannot fly but swims well is a ........", eng: "penguin" },
+                    { q: "The king of the jungle is the ........", eng: "lion" },
+                    { q: "A slow animal with a hard shell on its back is a ........", eng: "turtle" },
+                    { q: "An insect that makes honey is a ........", eng: "bee" },
+                    { q: "A farm animal that gives us wool is a ........", eng: "sheep" },
+                    { q: "An animal that loves bananas and climbs trees is a ........", eng: "monkey" },
+                    { q: "A green animal that jumps and says 'ribbit' is a ........", eng: "frog" },
+                    { q: "A large grey animal with a trunk is an ........", eng: "elephant" },
+                    { q: "A pet that barks is a ........", eng: "dog" },
+                    { q: "A long animal with no legs is a ........", eng: "snake" },
+                    { q: "A big wild cat with orange and black stripes is a ........", eng: "tiger" },
+                    { q: "An animal that you can ride on is a ........", eng: "horse" },
+                    { q: "A farm animal that goes 'oink' is a ........", eng: "pig" },
+                    { q: "A bird that wakes people up in the morning is a ........", eng: "rooster" }
+                ],
+                hard: [
+                    { q: "A large Australian animal that hops is a ........", eng: "kangaroo" },
+                    { q: "The tallest animal with a very long neck is a ........", eng: "giraffe" },
+                    { q: "A large sea animal that breathes through a blowhole is a ........", eng: "whale" },
+                    { q: "A clever sea creature with eight arms is an ........", eng: "octopus" },
+                    { q: "A large bird with beautiful tail feathers that opens like a fan is a ........", eng: "peacock" },
+                    { q: "An animal with a horn on its nose is a ........", eng: "rhinoceros" },
+                    { q: "A large water animal with big teeth that looks like a log is a ........", eng: "crocodile / alligator" },
+                    { q: "A bird that is awake at night and hoots is an ........", eng: "owl" },
+                    { q: "A furry animal with a flat tail that builds dams is a ........", eng: "beaver" },
+                    { q: "A black and white bear from China is a ........", eng: "panda" },
+                    { q: "A large bird running very fast but cannot fly is an ........", eng: "ostrich" },
+                    { q: "An animal with a hump or two on its back, used in deserts, is a ........", eng: "camel" },
+                    { q: "A small jumping insect that makes a chirping sound is a ........", eng: "cricket / grasshopper" },
+                    { q: "A dangerous spider with a red mark on its back is a black ........", eng: "widow" },
+                    { q: "A large cat with spots that is the fastest land animal is a ........", eng: "cheetah" }
+                ]
+            },
+             'foods': {
+                easy: [
+                    { q: "Nasi", eng: "Rice" },
+                    { q: "Roti", eng: "Bread" },
+                    { q: "Susu", eng: "Milk" },
+                    { q: "Ayam", eng: "Chicken" },
+                    { q: "Telur", eng: "Egg / Eggs" },
+                    { q: "Air", eng: "Water" },
+                    { q: "Keju", eng: "Cheese" },
+                    { q: "Apel", eng: "Apple" },
+                    { q: "Pisang", eng: "Banana" },
+                    { q: "Jeruk", eng: "Orange" },
+                    { q: "Daging", eng: "Meat" },
+                    { q: "Sup", eng: "Soup" },
+                    { q: "Gula", eng: "Sugar" },
+                    { q: "Garam", eng: "Salt" },
+                    { q: "Mentega", eng: "Butter" }
+                ],
+                medium: [
+                    { q: "It is yellow and long, monkeys love this fruit: ........", eng: "banana" },
+                    { q: "A round food made of dough with cheese and tomato sauce on top is ........", eng: "pizza" },
+                    { q: "We make French fries from a ........", eng: "potato" },
+                    { q: "A sweet brown treat made from cocoa beans is ........", eng: "chocolate" },
+                    { q: "A drink made from squeezed oranges is orange ........", eng: "juice" },
+                    { q: "You eat cereal with ........", eng: "milk" },
+                    { q: "A sandwich is made with two slices of ........", eng: "bread" },
+                    { q: "A red fruit that you can make ketchup from is a ........", eng: "tomato" },
+                    { q: "A green or purple fruit that grows in bunches is a ........", eng: "grape" },
+                    { q: "Bugs Bunny likes to eat this orange vegetable: ........", eng: "carrot" },
+                    { q: "You crack it open to cook it, it has a white and a yolk: ........", eng: "egg" },
+                    { q: "A hot liquid food, often eaten when you are sick, is ........", eng: "soup" },
+                    { q: "A cold sweet treat often eaten in summer is ........", eng: "ice cream" },
+                    { q: "A baked sweet food made with flour, sugar, and eggs is a ........", eng: "cake" },
+                    { q: "A small round sweet bread with a hole in the middle is a ........", eng: "donut" }
+                ],
+                hard: [
+                    { q: "A white liquid produced by cows is ........", eng: "milk" },
+                    { q: "Small grains that are white or brown, a main food in Asia: ........", eng: "rice" },
+                    { q: "Meat from a cow is called ........", eng: "beef" },
+                    { q: "A hot drink made from roasted beans is ........", eng: "coffee" },
+                    { q: "A sweet frozen dessert usually eaten in a cone is ........", eng: "ice cream" },
+                    { q: "Meat from a pig is called ........", eng: "pork" },
+                    { q: "Meat from a sheep is called ........", eng: "mutton / lamb" },
+                    { q: "A dark red or green spicy vegetable is a ........", eng: "chili / pepper" },
+                    { q: "A vegetable that makes you cry when you cut it is an ........", eng: "onion" },
+                    { q: "A yellow vegetable with kernels on a cob is ........", eng: "corn" },
+                    { q: "A green vegetable that looks like a small tree is ........", eng: "broccoli" },
+                    { q: "A sweet sticky substance made by bees is ........", eng: "honey" },
+                    { q: "A condiment made from crushed mustard seeds is ........", eng: "mustard" },
+                    { q: "A sour liquid made from grapes or apples, used on salads, is ........", eng: "vinegar" },
+                    { q: "A sea animal with a shell, often boiled and turns red, is a ........", eng: "lobster" }
+                ]
+            },
+            'tastes': {
+                easy: [
+                    { q: "Manis", eng: "Sweet" },
+                    { q: "Pahit", eng: "Bitter" },
+                    { q: "Asin", eng: "Salty" },
+                    { q: "Asam", eng: "Sour" },
+                    { q: "Pedas", eng: "Spicy / Hot" },
+                    { q: "Enak", eng: "Delicious / Yummy" },
+                    { q: "Tidak enak", eng: "Disgusting / Yuck" },
+                    { q: "Segar", eng: "Fresh" },
+                    { q: "Basi", eng: "Rotten / Spoiled" },
+                    { q: "Panas (Suhu)", eng: "Hot" },
+                    { q: "Dingin (Suhu)", eng: "Cold" },
+                    { q: "Gurih", eng: "Savory" },
+                    { q: "Renyah", eng: "Crunchy / Crispy" },
+                    { q: "Lembut", eng: "Soft" },
+                    { q: "Keras", eng: "Hard" }
+                ],
+                medium: [
+                    { q: "Sugar and candy taste very ........", eng: "sweet" },
+                    { q: "Sea water and soy sauce taste ........", eng: "salty" },
+                    { q: "A lemon or lime tastes very ........", eng: "sour" },
+                    { q: "Chili peppers make food taste ........", eng: "spicy / hot" },
+                    { q: "Dark coffee without sugar tastes ........", eng: "bitter" },
+                    { q: "Honey and chocolate are very ........", eng: "sweet" },
+                    { q: "Potato chips are usually very ........", eng: "salty" },
+                    { q: "Vinegar has a very ........ taste.", eng: "sour" },
+                    { q: "Wasabi and curry can be very ........", eng: "spicy" },
+                    { q: "Some medicines have a horrible ........ taste.", eng: "bitter" },
+                    { q: "This cake is so good, it is ........", eng: "delicious" },
+                    { q: "I don't like this food, it tastes ........", eng: "awful / bad" },
+                    { q: "Apples can be sweet or ........", eng: "sour" },
+                    { q: "A cracker makes a noise when you bite it because it is ........", eng: "crunchy" },
+                    { q: "Soup should be eaten when it is ........", eng: "hot" }
+                ],
+                hard: [
+                    { q: "This cake is too ........ because I put too much sugar.", eng: "sweet" },
+                    { q: "Medicine often has a ........ taste.", eng: "bitter" },
+                    { q: "I can't eat this soup, it is too ........ from the chilies.", eng: "spicy" },
+                    { q: "Vinegar has a strong and ........ flavor.", eng: "sour" },
+                    { q: "Chips and pretzels are usually popular ........ snacks.", eng: "salty" },
+                    { q: "Food that has no flavor is ........", eng: "bland / tasteless" },
+                    { q: "Food that is cooked with a lot of fat is ........", eng: "greasy / oily" },
+                    { q: "Meat that is hard to chew is ........", eng: "tough" },
+                    { q: "Meat that is easy to chew is ........", eng: "tender" },
+                    { q: "Fruit that is full of juice is ........", eng: "juicy" },
+                    { q: "Food that has gone bad and smells awful is ........", eng: "rotten" },
+                    { q: "Bread that is old and hard is ........", eng: "stale" },
+                    { q: "A flavor that is strong and sharp, like strong cheese, is ........", eng: "pungent" },
+                    { q: "A rich flavor, often found in meat broths or mushrooms, is called ........", eng: "umami" },
+                    { q: "Food cooked in an oven until it is hard and dry is ........", eng: "crispy" }
                 ]
             }
         };
@@ -345,27 +1343,9 @@
         topics.forEach(topic => {
             if (!questionBank[topic.id]) {
                 questionBank[topic.id] = {
-                    easy: [
-                        { q: `Satu (${topic.title})`, eng: "One" },
-                        { q: `Dua (${topic.title})`, eng: "Two" },
-                        { q: `Tiga (${topic.title})`, eng: "Three" },
-                        { q: `Empat (${topic.title})`, eng: "Four" },
-                        { q: `Lima (${topic.title})`, eng: "Five" }
-                    ],
-                    medium: [
-                        { q: `What is 1+1? (${topic.title})`, eng: "Two" },
-                        { q: `What is 2+1? (${topic.title})`, eng: "Three" },
-                        { q: `What is 2+2? (${topic.title})`, eng: "Four" },
-                        { q: `What is 3+2? (${topic.title})`, eng: "Five" },
-                        { q: `What is 5+1? (${topic.title})`, eng: "Six" }
-                    ],
-                    hard: [
-                        { q: `Translate 'Tujuh' (${topic.title})`, eng: "Seven" },
-                        { q: `Translate 'Delapan' (${topic.title})`, eng: "Eight" },
-                        { q: `Translate 'Sembilan' (${topic.title})`, eng: "Nine" },
-                        { q: `Translate 'Sepuluh' (${topic.title})`, eng: "Ten" },
-                        { q: `Translate 'Sebelas' (${topic.title})`, eng: "Eleven" }
-                    ]
+                    easy: Array.from({length: 15}, (_, i) => ({ q: `Question ${i+1} (${topic.title})`, eng: `Answer ${i+1}` })),
+                    medium: Array.from({length: 15}, (_, i) => ({ q: `Medium Q ${i+1} (${topic.title})`, eng: `Medium A ${i+1}` })),
+                    hard: Array.from({length: 15}, (_, i) => ({ q: `Hard Q ${i+1} (${topic.title})`, eng: `Hard A ${i+1}` }))
                 };
             }
         });
@@ -375,7 +1355,7 @@
         let currentTopic = null;
         let currentQuestions = [];
         let currentQuestionIndex = 0;
-        let totalQuestions = 5;
+        let totalQuestions = 15;
 
         // Initialize Menu
         document.addEventListener('DOMContentLoaded', () => {
@@ -440,8 +1420,8 @@
             
             // Get questions for topic and level, shuffle them
             let rawQuestions = [...questionBank[topic.id][currentLevel]];
-            // Slicing after shuffling ensures we NEVER get duplicate questions in a single round
-            currentQuestions = rawQuestions.sort(() => 0.5 - Math.random()).slice(0, 5); 
+            // Now we slice 15 questions (or all of them if less than 15 somehow exist)
+            currentQuestions = rawQuestions.sort(() => 0.5 - Math.random()).slice(0, 15); 
             totalQuestions = currentQuestions.length;
             document.getElementById('total-questions').innerText = totalQuestions;
             
